@@ -1,1 +1,819 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>saloon</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,-apple-system,sans-serif;background:#0a0e1a;color:#e8ecf6}.c{text-align:center;padding:24px}h1{font-size:34px;margin:0 0 8px;letter-spacing:-.5px}p{color:#8b93a7;margin:4px 0}.t{margin-top:20px;font-size:12px;color:#5b6478}</style></head><body><div class="c"><h1>saloon</h1><p>Edit index.html and push — it deploys automatically.</p><p class="t">Staged with Janus.</p></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velvet & Oak — Classic Saloon</title>
+<style>
+  :root{
+    --ink:#1c1512;
+    --ink-soft:#4a3b33;
+    --cream:#f7f1e8;
+    --cream-2:#efe5d7;
+    --gold:#c08a3e;
+    --gold-soft:#d9ab63;
+    --wine:#6d2b2b;
+    --wine-deep:#4a1c1c;
+    --line:rgba(28,21,18,.12);
+    --shadow:0 18px 40px -18px rgba(28,21,18,.45);
+    --radius:18px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    font-family:"Georgia","Times New Roman",serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{max-width:100%;display:block}
+
+  .wrap{width:min(1160px,92vw);margin-inline:auto}
+
+  .eyebrow{
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.32em;
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--gold);
+  }
+
+  h1,h2,h3{line-height:1.15;font-weight:400;letter-spacing:.01em}
+
+  h2{font-size:clamp(1.9rem,4vw,2.9rem)}
+
+  .lead{color:var(--ink-soft);font-size:1.05rem;max-width:60ch}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,241,232,.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:1.5rem;padding:.9rem 0;
+  }
+
+  .brand{
+    display:flex;align-items:center;gap:.7rem;
+    text-decoration:none;color:var(--ink);
+  }
+
+  .brand-mark{
+    width:42px;height:42px;flex:none;
+    display:grid;place-items:center;
+    border-radius:50%;
+    background:linear-gradient(145deg,var(--wine),var(--wine-deep));
+    color:var(--gold-soft);
+    font-size:1.15rem;
+    box-shadow:inset 0 0 0 1px rgba(217,171,99,.5);
+  }
+
+  .brand-name{
+    font-size:1.22rem;letter-spacing:.14em;text-transform:uppercase;
+  }
+
+  .brand-name small{
+    display:block;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.55rem;letter-spacing:.34em;
+    color:var(--gold);text-transform:uppercase;
+  }
+
+  nav ul{
+    display:flex;gap:2rem;list-style:none;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;
+  }
+
+  nav a{
+    color:var(--ink-soft);text-decoration:none;
+    padding-bottom:.25rem;border-bottom:1px solid transparent;
+    transition:color .25s,border-color .25s;
+  }
+
+  nav a:hover{color:var(--wine);border-color:var(--gold)}
+
+  .btn{
+    display:inline-block;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+    text-decoration:none;
+    padding:.85rem 1.7rem;
+    border-radius:999px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .25s,box-shadow .25s,background .25s,color .25s;
+  }
+
+  .btn-primary{
+    background:linear-gradient(145deg,var(--wine),var(--wine-deep));
+    color:var(--cream);
+    box-shadow:var(--shadow);
+  }
+
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 22px 44px -18px rgba(74,28,28,.7)}
+
+  .btn-ghost{
+    border-color:var(--gold);
+    color:var(--ink);
+    background:transparent;
+  }
+
+  .btn-ghost:hover{background:var(--gold);color:#fff;transform:translateY(-2px)}
+
+  .nav-cta{display:inline-block}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(1100px 520px at 78% -10%,rgba(192,138,62,.28),transparent 60%),
+      linear-gradient(160deg,#241a16 0%,#3a2620 45%,#4a1c1c 100%);
+    color:var(--cream);
+  }
+
+  .hero::after{
+    content:"";
+    position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 90px);
+    pointer-events:none;
+  }
+
+  .hero-inner{
+    position:relative;z-index:2;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:3.5rem;
+    align-items:center;
+    padding:5.5rem 0 6rem;
+  }
+
+  .hero h1{
+    font-size:clamp(2.4rem,5.6vw,4.1rem);
+    margin:1rem 0 1.2rem;
+  }
+
+  .hero h1 em{
+    font-style:italic;color:var(--gold-soft);
+  }
+
+  .hero p{
+    color:rgba(247,241,232,.82);
+    max-width:52ch;
+    font-size:1.06rem;
+  }
+
+  .hero-actions{
+    display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.2rem;
+  }
+
+  .hero .btn-ghost{color:var(--cream);border-color:rgba(217,171,99,.7)}
+  .hero .btn-ghost:hover{color:var(--ink)}
+
+  .hero-stats{
+    display:flex;gap:2.6rem;margin-top:3rem;flex-wrap:wrap;
+  }
+
+  .hero-stats strong{
+    display:block;font-size:1.7rem;color:var(--gold-soft);
+  }
+
+  .hero-stats span{
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(247,241,232,.6);
+  }
+
+  .hero-card{
+    position:relative;
+    border-radius:var(--radius);
+    padding:2.4rem 2.2rem;
+    background:rgba(247,241,232,.07);
+    border:1px solid rgba(217,171,99,.35);
+    backdrop-filter:blur(6px);
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.8);
+  }
+
+  .hero-card h3{
+    font-size:1.35rem;margin-bottom:.4rem;color:var(--cream);
+  }
+
+  .hero-card .eyebrow{color:var(--gold-soft)}
+
+  .hours{
+    list-style:none;margin-top:1.4rem;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.86rem;
+  }
+
+  .hours li{
+    display:flex;justify-content:space-between;gap:1rem;
+    padding:.6rem 0;
+    border-bottom:1px dashed rgba(247,241,232,.18);
+    color:rgba(247,241,232,.85);
+  }
+
+  .hours li:last-child{border-bottom:0}
+
+  .hours b{color:var(--gold-soft);font-weight:600}
+
+  /* ---------- Sections ---------- */
+  section{padding:5.5rem 0}
+
+  .section-head{
+    max-width:640px;margin-bottom:3rem;
+  }
+
+  .section-head h2{margin:.8rem 0 1rem}
+
+  .alt{background:var(--cream-2)}
+
+  /* About */
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;
+  }
+
+  .about-art{
+    position:relative;
+    border-radius:var(--radius);
+    min-height:380px;
+    background:
+      radial-gradient(circle at 30% 25%,rgba(217,171,99,.55),transparent 55%),
+      linear-gradient(150deg,#4a1c1c,#241a16);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+
+  .about-art::before{
+    content:"";
+    position:absolute;inset:22px;
+    border:1px solid rgba(217,171,99,.45);
+    border-radius:calc(var(--radius) - 6px);
+  }
+
+  .about-art .monogram{
+    position:absolute;inset:0;
+    display:grid;place-items:center;
+    font-size:5.5rem;color:rgba(247,241,232,.9);
+    letter-spacing:.1em;
+  }
+
+  .about-art .badge{
+    position:absolute;bottom:26px;left:26px;right:26px;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold-soft);
+  }
+
+  .feature-list{list-style:none;margin-top:1.8rem;display:grid;gap:1.1rem}
+
+  .feature-list li{
+    display:flex;gap:1rem;align-items:flex-start;
+  }
+
+  .tick{
+    flex:none;width:26px;height:26px;border-radius:50%;
+    display:grid;place-items:center;
+    background:var(--wine);color:var(--gold-soft);
+    font-size:.75rem;margin-top:.2rem;
+  }
+
+  .feature-list b{display:block;font-weight:600}
+  .feature-list p{color:var(--ink-soft);font-size:.95rem}
+
+  /* Services */
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.6rem;
+  }
+
+  .card{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2rem 1.8rem;
+    transition:transform .3s,box-shadow .3s,border-color .3s;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .card::after{
+    content:"";
+    position:absolute;left:0;top:0;height:3px;width:0;
+    background:linear-gradient(90deg,var(--gold),var(--wine));
+    transition:width .35s;
+  }
+
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(192,138,62,.5)}
+  .card:hover::after{width:100%}
+
+  .card .icon{
+    width:52px;height:52px;border-radius:14px;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,var(--cream-2),#e2d4bf);
+    color:var(--wine);font-size:1.4rem;
+    margin-bottom:1.2rem;
+  }
+
+  .card h3{font-size:1.25rem;margin-bottom:.5rem}
+  .card p{color:var(--ink-soft);font-size:.95rem}
+
+  .price{
+    display:inline-block;margin-top:1.2rem;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--wine);font-weight:700;
+  }
+
+  /* Gallery */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    grid-auto-rows:170px;
+    gap:1rem;
+  }
+
+  .tile{
+    position:relative;
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:grid;place-items:end start;
+    padding:1.2rem;
+    color:var(--cream);
+    box-shadow:var(--shadow);
+    transition:transform .35s;
+  }
+
+  .tile:hover{transform:scale(1.02)}
+
+  .tile span{
+    position:relative;z-index:2;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  }
+
+  .tile::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 35%,rgba(20,12,10,.78));
+  }
+
+  .t1{grid-column:span 2;grid-row:span 2;background:linear-gradient(140deg,#6d2b2b,#241a16)}
+  .t2{background:linear-gradient(140deg,#c08a3e,#6d2b2b)}
+  .t3{background:linear-gradient(140deg,#3a2620,#1c1512)}
+  .t4{grid-column:span 2;background:linear-gradient(140deg,#4a1c1c,#8a5a2b)}
+  .t5{background:linear-gradient(140deg,#8a5a2b,#3a2620)}
+
+  /* Testimonials */
+  .quotes{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    gap:1.6rem;
+  }
+
+  .quote{
+    background:var(--cream);
+    border-radius:var(--radius);
+    padding:2rem 1.8rem;
+    border:1px solid var(--line);
+    display:flex;flex-direction:column;gap:1rem;
+  }
+
+  .stars{color:var(--gold);letter-spacing:.2em;font-size:.9rem}
+
+  .quote p{font-style:italic;color:var(--ink-soft)}
+
+  .who{
+    display:flex;align-items:center;gap:.85rem;margin-top:auto;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+  }
+
+  .avatar{
+    width:42px;height:42px;border-radius:50%;flex:none;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,var(--wine),var(--wine-deep));
+    color:var(--gold-soft);font-size:.85rem;font-weight:700;
+  }
+
+  .who b{display:block;font-size:.85rem;letter-spacing:.06em}
+  .who small{color:var(--ink-soft);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+
+  /* Contact */
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:start;
+  }
+
+  .info-list{list-style:none;display:grid;gap:1.4rem;margin-top:1.8rem}
+
+  .info-list li{display:flex;gap:1rem;align-items:flex-start}
+
+  .info-list .icon{
+    width:44px;height:44px;flex:none;border-radius:12px;
+    display:grid;place-items:center;
+    background:var(--cream-2);color:var(--wine);font-size:1.1rem;
+  }
+
+  .info-list b{display:block;font-size:.95rem}
+  .info-list span{color:var(--ink-soft);font-size:.92rem}
+
+  form{
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2.2rem;
+    box-shadow:var(--shadow);
+    display:grid;gap:1.1rem;
+  }
+
+  .field{display:grid;gap:.4rem}
+
+  label{
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  input,select,textarea{
+    font-family:inherit;font-size:.95rem;
+    padding:.8rem .95rem;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fffdf9;
+    color:var(--ink);
+    transition:border-color .25s,box-shadow .25s;
+  }
+
+  input:focus,select:focus,textarea:focus{
+    outline:none;border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(192,138,62,.18);
+  }
+
+  textarea{resize:vertical;min-height:110px}
+
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+
+  form .btn-primary{justify-self:start;border:0}
+
+  /* Footer */
+  footer{
+    background:linear-gradient(160deg,#241a16,#4a1c1c);
+    color:rgba(247,241,232,.78);
+    padding:4rem 0 2rem;
+  }
+
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:2.5rem;
+  }
+
+  footer h4{
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:1.1rem;font-weight:700;
+  }
+
+  footer ul{list-style:none;display:grid;gap:.6rem;font-size:.92rem}
+  footer a{color:rgba(247,241,232,.78);text-decoration:none;transition:color .25s}
+  footer a:hover{color:var(--gold-soft)}
+
+  .foot-brand p{font-size:.92rem;max-width:34ch;margin-top:1rem}
+
+  .foot-bottom{
+    margin-top:3rem;padding-top:1.6rem;
+    border-top:1px solid rgba(247,241,232,.15);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    font-family:"Trebuchet MS",Verdana,sans-serif;
+    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(247,241,232,.5);
+  }
+
+  /* Responsive */
+  @media (max-width:960px){
+    .hero-inner{grid-template-columns:1fr;padding:4rem 0 4.5rem}
+    .about-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+    .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+    .t1{grid-column:span 2;grid-row:span 1}
+    .t4{grid-column:span 2}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+
+  @media (max-width:720px){
+    nav ul{display:none}
+    .nav-cta{display:none}
+    section{padding:4rem 0}
+    .hero-stats{gap:1.8rem}
+    .row2{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .foot-bottom{justify-content:center;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <span class="brand-mark">V&amp;O</span>
+      <span class="brand-name">Velvet &amp; Oak<small>Barber Saloon</small></span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="#contact">Book a Chair</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow">Est. 1924 · Downtown District</p>
+        <h1>Sharp cuts, warm towels &amp; <em>timeless</em> craft.</h1>
+        <p>Velvet &amp; Oak is a classic barber saloon where hot lather, straight razors and honest conversation still matter. Walk in for a trim, walk out feeling like a gentleman.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Book Your Visit</a>
+          <a class="btn btn-ghost" href="#services">View Services</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>100+</strong><span>Years of Craft</span></div>
+          <div><strong>9</strong><span>Master Barbers</span></div>
+          <div><strong>4.9★</strong><span>1,200 Reviews</span></div>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <p class="eyebrow">Opening Hours</p>
+        <h3>The Chair Is Always Warm</h3>
+        <ul class="hours">
+          <li><span>Monday – Thursday</span><b>9:00 – 19:00</b></li>
+          <li><span>Friday</span><b>9:00 – 21:00</b></li>
+          <li><span>Saturday</span><b>8:00 – 20:00</b></li>
+          <li><span>Sunday</span><b>10:00 – 16:00</b></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-art">
+        <div class="monogram">V&amp;O</div>
+        <div class="badge">Handcrafted grooming since 1924</div>
+      </div>
+      <div>
+        <p class="eyebrow">Our Story</p>
+        <h2>A saloon built on steady hands and good company.</h2>
+        <p class="lead">Four generations ago, Vincenzo opened a two-chair shop on Oak Street. We've kept the brass fixtures, the leather chairs and the same simple promise: every client leaves looking their best.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="tick">✓</span>
+            <div><b>Master barbers only</b><p>Each stylist trains for three years before taking a chair of their own.</p></div>
+          </li>
+          <li>
+            <span class="tick">✓</span>
+            <div><b>Traditional hot-towel shaves</b><p>Straight razor, badger brush and a lather made fresh every morning.</p></div>
+          </li>
+          <li>
+            <span class="tick">✓</span>
+            <div><b>Small-batch products</b><p>Locally blended oils, balms and tonics — never anything we wouldn't use ourselves.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Services &amp; Pricing</p>
+        <h2>Everything a gentleman needs.</h2>
+        <p class="lead">Walk-ins are welcome, but a reserved chair means no waiting. Every service includes a consultation, hot towel and a finishing tonic.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">✂</div>
+          <h3>Signature Cut</h3>
+          <p>Consultation, precision scissor cut, hot-towel finish and styling with our house pomade.</p>
+          <span class="price">From $38 · 45 min</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🪒</div>
+          <h3>Royal Shave</h3>
+          <p>Two hot towels, pre-shave oil, straight-razor shave and a cooling balm massage.</p>
+          <span class="price">From $45 · 40 min</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">🧔</div>
+          <h3>Beard Sculpt</h3>
+          <p>Shape, line-up and condition, finished with cedar oil for a soft, healthy beard.</p>
+          <span class="price">From $28 · 30 min</span>
+        </article>
+
+        <article class="card">
+          <div class="icon">👑</div>
+          <h3>The Full Works</h3>
+          <p>Cut, royal shave, beard sculpt, brow tidy and a scalp massage. Our finest hour and a half.</p>
+          <span class="price">From $95 · 90 min</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Inside the Saloon</p>
+        <h2>Brass, leather and warm light.</h2>
+        <p class="lead">A look around the shop — from the original 1924 chairs to the marble counter where the lather is made.</p>
+      </div>
+
+      <div class="gallery">
+        <div class="tile t1"><span>The Main Floor</span></div>
+        <div class="tile t2"><span>Hot Towel Ritual</span></div>
+        <div class="tile t3"><span>Straight Razors</span></div>
+        <div class="tile t4"><span>The Marble Counter</span></div>
+        <div class="tile t5"><span>House Blends</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="alt">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Kind Words</p>
+        <h2>Trusted by the neighbourhood.</h2>
+      </div>
+
+      <div class="quotes">
+        <article class="quote">
+          <div class="stars">★★★★★</div>
+          <p>“I've been coming here for eleven years. Same chair, same barber, same perfect fade every single time.”</p>
+          <div class="who">
+            <span class="avatar">DM</span>
+            <div><b>Daniel Mercer</b><small>Regular since 2013</small></div>
+          </div>
+        </article>
+
+        <article class="quote">
+          <div class="stars">★★★★★</div>
+          <p>“The royal shave is worth every penny. Hot towels, a steady hand and a proper conversation. Rare these days.”</p>
+          <div class="who">
+            <span class="avatar">AR</span>
+            <div><b>Amir Rahman</b><small>Groom's party booking</small></div>
+          </div>
+        </article>
+
+        <article class="quote">
+          <div class="stars">★★★★★</div>
+          <p>“Booked my son's first haircut here. They were patient, gentle and made it a proper little ceremony.”</p>
+          <div class="who">
+            <span class="avatar">SL</span>
+            <div><b>Sophie Lang</b><small>Family visit</small></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="eyebrow">Visit Us</p>
+        <h2>Reserve your chair.</h2>
+        <p class="lead">Send us a note and we'll confirm your slot within the hour. Prefer to talk? Give the shop a ring — someone always picks up.</p>
+
+        <ul class="info-list">
+          <li>
+            <span class="icon">📍</span>
+            <div><b>142 Oak Street</b><span>Downtown District, Portland, OR 97204</span></div>
+          </li>
+          <li>
+            <span class="icon">📞</span>
+            <div><b>(503) 555-0142</b><span>Mon–Sat, 9:00 – 19:00</span></div>
+          </li>
+          <li>
+            <span class="icon">✉</span>
+            <div><b>hello@velvetandoak.com</b><span>We reply the same day</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <form action="#" method="post">
+        <div class="row2">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="James Whitfield" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="(503) 555-0100" required>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="service">Service</label>
+            <select id="service" name="service">
+              <option>Signature Cut</option>
+              <option>Royal Shave</option>
+              <option>Beard Sculpt</option>
+              <option>The Full Works</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="date">Preferred Date</label>
+            <input id="date" name="date" type="date">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" placeholder="Preferred barber, timing, anything else we should know…"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Request Booking</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <span class="brand-mark">V&amp;O</span>
+          <span class="brand-name">Velvet &amp; Oak<small>Barber Saloon</small></span>
+        </a>
+        <p>A traditional barber saloon serving the Downtown District since 1924. Cuts, shaves and good conversation.</p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Book Now</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Signature Cut</a></li>
+          <li><a href="#services">Royal Shave</a></li>
+          <li><a href="#services">Beard Sculpt</a></li>
+          <li><a href="#services">The Full Works</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Visit</h4>
+        <ul>
+          <li>142 Oak Street</li>
+          <li>Portland, OR 97204</li>
+          <li><a href="tel:+15035550142">(503) 555-0142</a></li>
+          <li><a href="mailto:hello@velvetandoak.com">hello@velvetandoak.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2024 Velvet &amp; Oak Barber Saloon</span>
+      <span>Mon–Sat 9–19 · Sun 10–16</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
