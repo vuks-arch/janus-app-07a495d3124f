@@ -1,0 +1,73 @@
+name: render-to-photo (open-source, CPU)
+on:
+  push:
+    branches: [golf-ai-photos]
+    paths: ['in/**', 'render_to_photo.sh', '.github/workflows/photo.yml']
+  workflow_dispatch:
+    inputs:
+      limit: { description: 'Max images this run (0 = all pending)', default: '0' }
+      jobs: { description: 'Parallel jobs', default: '12' }
+permissions: { contents: write }
+concurrency: { group: photo, cancel-in-progress: false }
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs: { matrix: "${{ steps.plan.outputs.matrix }}", count: "${{ steps.plan.outputs.count }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        run: |
+          LIMIT='${{ github.event.inputs.limit || '0' }}'; JOBS='${{ github.event.inputs.jobs || '12' }}'
+          python3 - "$LIMIT" "$JOBS" <<'PY' >> "$GITHUB_OUTPUT"
+          import glob, json, os, sys
+          limit, jobs = int(sys.argv[1]), int(sys.argv[2])
+          pending = [f for f in sorted(glob.glob('in/*/*.jpg')) if not os.path.exists(f.replace('in/', 'out/', 1))]
+          if limit: pending = pending[:limit]
+          n = max(1, min(jobs, len(pending))); chunks = [pending[i::n] for i in range(n)] if pending else []
+          print('matrix=' + json.dumps({'include': [{'id': i, 'files': ' '.join(c)} for i, c in enumerate(chunks)]} if chunks else {'include': [{'id': 0, 'files': ''}]}))
+          print('count=' + str(len(pending)))
+          PY
+  render:
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy: { fail-fast: false, max-parallel: 20, matrix: "${{ fromJson(needs.plan.outputs.matrix) }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache stable-diffusion.cpp build
+        id: sdcache
+        uses: actions/cache@v4
+        with: { path: sdcpp/build/bin/sd-cli, key: "sdcli-${{ runner.os }}-v1" }
+      - name: Build stable-diffusion.cpp
+        if: steps.sdcache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 --recursive https://github.com/leejet/stable-diffusion.cpp sdcpp
+          cmake -S sdcpp -B sdcpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=ON -DSD_BUILD_SHARED_LIBS=OFF
+          cmake --build sdcpp/build --config Release -j4
+      - name: Download model weights (FLUX.2 klein 4B, Qwen3-4B, FLUX.2 VAE)
+        run: |
+          mkdir -p ~/models && cd ~/models
+          curl -sL --retry 3 -o flux-2-klein-4b-Q4_0.gguf https://huggingface.co/leejet/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q4_0.gguf &
+          curl -sL --retry 3 -o Qwen3-4B-Q4_K_M.gguf https://huggingface.co/unsloth/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf &
+          curl -sL --retry 3 -o flux2-vae.safetensors https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-4b/resolve/main/split_files/vae/flux2-vae.safetensors &
+          wait; ls -la ~/models
+      - name: Render to photo
+        env: { SD_CLI: "${{ github.workspace }}/sdcpp/build/bin/sd-cli", THREADS: '4' }
+        run: |
+          for f in ${{ matrix.files }}; do out=${f/in\//out/}; echo "== $f"; time bash render_to_photo.sh "$f" "$out" || echo "FAILED $f"; done
+          ls -R out || true
+      - uses: actions/upload-artifact@v4
+        with: { name: "photos-${{ matrix.id }}", path: out, if-no-files-found: ignore }
+  commit:
+    needs: [plan, render]
+    if: always() && needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: 'photos-*', path: out, merge-multiple: true }
+      - run: |
+          git config user.name 'render-to-photo bot'; git config user.email 'bot@users.noreply.github.com'
+          git add out && (git commit -m "AI photo pass: $(find out -name '*.jpg' | wc -l) images total" || echo 'nothing new')
+          git pull --rebase && git push
