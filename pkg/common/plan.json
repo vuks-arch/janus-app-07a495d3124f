@@ -1,0 +1,1730 @@
+{
+ "meta": {
+  "project": "Duplex Renovation at Golf",
+  "architect": "NDE FORCOB Architects, Yaounde",
+  "drawing": "A12-001 Ground floor, project 26-028, Concept Design, 30/10/26",
+  "plan_used": "01 Proposed GFloor (right-hand plan); 02 Existing GFloor used only for dimension cross-checks",
+  "scale_basis": "A3 PDF of a 1:50@A1 sheet = 1:100; 1 pt = 35.278 mm; verified against printed dimensions 5.80, 7.60, 4.64, 8.06, 5.12, 4.60, 2.76 and printed areas 45/54/23/8 m\u00b2",
+  "disclaimer": "Drawing note: 'Do not scale from this drawing, all dimensions are to be checked onsite.' All lengths here are linework measurements, not survey dimensions.",
+  "origin": "Living Room south-west inner corner; x east, y north, metres",
+  "north": "Sheet-up taken as north (compass not shown on the drawing)"
+ },
+ "assumptions": {
+  "ceiling_height_m": 3.0,
+  "door_head_m": 2.1,
+  "window_sill_m": 0.9,
+  "window_head_m": 2.1,
+  "arch_spring_m": 2.1,
+  "arch_apex_m": 2.7,
+  "south_opening_head_m": 2.4,
+  "folding_door_head_m": 2.1,
+  "sliding_door_head_m": 2.1,
+  "wall_thickness_m": 0.18,
+  "column_diameter_m": 0.45,
+  "landing_step_m": 0.15,
+  "glazed_screen_full_height": true,
+  "terrace_cover": "none (open paving assumed)",
+  "upper_floor": "massing block only, not surveyed",
+  "unsurveyed_rooms": "massing blocks only; doors into them stay closed"
+ },
+ "walls": [
+  {
+   "id": "liv_west_n",
+   "rect": [
+    0.0,
+    4.378,
+    0.18,
+    5.38
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "liv_west_s",
+   "rect": [
+    0.0,
+    -0.18,
+    0.18,
+    0.833
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "bay_n",
+   "rect": [
+    -0.797,
+    4.195,
+    0.18,
+    4.378
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "bay_s",
+   "rect": [
+    -0.797,
+    0.833,
+    0.18,
+    1.016
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "bay_w",
+   "rect": [
+    -0.681,
+    0.833,
+    -0.497,
+    4.378
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [
+    {
+     "id": "main_door",
+     "kind": "door_double_in",
+     "a": 1.104,
+     "b": 4.106,
+     "into": "living",
+     "swing_dir": "+x",
+     "label": "MAIN ENTRANCE: exterior double door, terrace to Living Room (drawing note: 'Wall shift and window replaced by door')",
+     "width_m": 3.0
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "liv_south",
+   "rect": [
+    0.0,
+    -0.18,
+    8.759,
+    0.0
+   ],
+   "horizontal": true,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "liv_hall_opening",
+     "kind": "opening",
+     "a": 4.018,
+     "b": 8.019,
+     "head": "south_opening_head_m",
+     "label": "Open between Living Room and Hall, flanked by two columns (existing; no change note on drawing)",
+     "width_m": 4.0
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "liv_dining",
+   "rect": [
+    0.0,
+    5.203,
+    11.702,
+    5.38
+   ],
+   "horizontal": true,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "arch",
+     "kind": "arch",
+     "a": 4.018,
+     "b": 8.019,
+     "label": "Arch between Living Room and Dining Room, flanked by two columns (drawing note: 'Wall replaced by arch')",
+     "width_m": 4.0
+    }
+   ],
+   "notes": "Former door at x~815-842 pt is now wall (drawing note: 'Door replaced by wall')"
+  },
+  {
+   "id": "east_spine",
+   "rect": [
+    8.583,
+    -4.957,
+    8.759,
+    5.203
+   ],
+   "horizontal": false,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "folding_door",
+     "kind": "folding4",
+     "a": 1.101,
+     "b": 4.103,
+     "into": "corridor",
+     "label": "Four-panel folding door, Living Room to corridor (drawing note: 'Opening replaced by door')",
+     "width_m": 3.0
+    }
+   ],
+   "notes": "Two former doors between Hall and Entrance Hall are now wall (drawing note: 'Door replaced by wall')"
+  },
+  {
+   "id": "din_west_main",
+   "rect": [
+    5.539,
+    10.019,
+    5.722,
+    13.162
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "din_alcove_n",
+   "rect": [
+    3.281,
+    10.019,
+    5.722,
+    10.202
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "din_alcove_w",
+   "rect": [
+    3.281,
+    5.203,
+    3.461,
+    10.202
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [
+    {
+     "id": "din_screen",
+     "kind": "glazed_screen",
+     "a": 5.711,
+     "b": 8.918,
+     "into": "dining",
+     "door": [
+      5.711,
+      6.759
+     ],
+     "fixed": [
+      6.759,
+      7.472
+     ],
+     "window": [
+      7.472,
+      8.918
+     ],
+     "label": "Glazed screen to paving with a single 1.0 m door at its south end, fixed panel, then window (drawing note: 'Window replaced by door')",
+     "width_m": 3.21
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "din_north",
+   "rect": [
+    5.539,
+    12.982,
+    11.702,
+    13.162
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [
+    {
+     "id": "din_win_w",
+     "kind": "window",
+     "a": 7.027,
+     "b": 8.53,
+     "label": "Window 1.5 m",
+     "width_m": 1.5
+    },
+    {
+     "id": "din_win_e",
+     "kind": "window",
+     "a": 8.759,
+     "b": 10.259,
+     "label": "Window 1.5 m",
+     "width_m": 1.5
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "din_east",
+   "rect": [
+    11.522,
+    5.203,
+    11.702,
+    13.162
+   ],
+   "horizontal": false,
+   "exterior": false,
+   "openings": [],
+   "notes": "Three halftone (existing) door/opening symbols at y 583-609, 636-665, 692-721 pt shown on the drawing; wall drawn continuous and hatched, treated as solid. Room beyond: ROOM NOT SURVEYED."
+  },
+  {
+   "id": "hall_west",
+   "rect": [
+    3.281,
+    -4.957,
+    3.461,
+    0.0
+   ],
+   "horizontal": false,
+   "exterior": true,
+   "openings": [
+    {
+     "id": "hall_door",
+     "kind": "door_double_sidelights",
+     "a": -3.972,
+     "b": -0.974,
+     "leaves": [
+      -3.387,
+      -1.559
+     ],
+     "into": "hall",
+     "swing_dir": "+x",
+     "label": "Exterior double door with fixed side panels, paving to Hall (drawing note: 'Window replaced by door')",
+     "width_m": 3.0
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "hall_south",
+   "rect": [
+    3.281,
+    -4.957,
+    8.759,
+    -4.78
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "eh_south",
+   "rect": [
+    8.583,
+    -3.179,
+    11.702,
+    -2.999
+   ],
+   "horizontal": true,
+   "exterior": true,
+   "openings": [
+    {
+     "id": "eh_door",
+     "kind": "door_single_side",
+     "a": 9.158,
+     "b": 11.169,
+     "leaf": [
+      9.818,
+      11.12
+     ],
+     "side": [
+      9.158,
+      9.818
+     ],
+     "hinge": 11.12,
+     "into": "entrance_hall",
+     "label": "Original entrance: single leaf (1.3 m) with side panel (0.66 m), Entrance Hall to south landing/steps",
+     "width_m": 2.01
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "eh_east",
+   "rect": [
+    11.522,
+    -3.179,
+    11.702,
+    1.45
+   ],
+   "horizontal": false,
+   "exterior": false,
+   "openings": [],
+   "notes": "Above y=431.6 pt this wall is drawn dashed (removed) up to the Dining Room wall: corridor and lobby are open to each other."
+  },
+  {
+   "id": "c2_south",
+   "rect": [
+    11.522,
+    1.27,
+    13.24,
+    1.45
+   ],
+   "horizontal": true,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "c2_door_s",
+     "kind": "door_single",
+     "a": 11.882,
+     "b": 12.88,
+     "hinge": 11.882,
+     "into": "unsurveyed_se",
+     "label": "Door 1.0 m into ROOM NOT SURVEYED (south-east); kept closed",
+     "width_m": 1.0
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "c2_east_s",
+   "rect": [
+    13.06,
+    1.27,
+    13.24,
+    2.9
+   ],
+   "horizontal": false,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "c2_door_e",
+     "kind": "door_single",
+     "a": 1.588,
+     "b": 2.586,
+     "hinge": 1.588,
+     "into": "unsurveyed_e",
+     "label": "Door 1.0 m east, area beyond not surveyed; kept closed",
+     "width_m": 1.0
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "c2_jog",
+   "rect": [
+    13.06,
+    2.72,
+    13.681,
+    2.9
+   ],
+   "horizontal": true,
+   "exterior": false,
+   "openings": [],
+   "notes": null
+  },
+  {
+   "id": "c2_east_n",
+   "rect": [
+    13.501,
+    2.72,
+    13.681,
+    6.84
+   ],
+   "horizontal": false,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "sliding_door",
+     "kind": "sliding",
+     "a": 2.974,
+     "b": 5.126,
+     "into": "stair_hall",
+     "label": "'Sliding Door' (drawing label; drawn as folding panels) 2.15 m to stair hall; area beyond not surveyed; kept closed",
+     "width_m": 2.15
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "c2_north",
+   "rect": [
+    11.522,
+    6.664,
+    13.681,
+    6.84
+   ],
+   "horizontal": true,
+   "exterior": false,
+   "openings": [
+    {
+     "id": "c2_door_n",
+     "kind": "door_single",
+     "a": 12.1,
+     "b": 13.099,
+     "hinge": 13.099,
+     "into": "unsurveyed_ne",
+     "label": "Door 1.0 m into ROOM NOT SURVEYED (north-east); kept closed",
+     "width_m": 1.0
+    }
+   ],
+   "notes": null
+  }
+ ],
+ "rooms": {
+  "terrace": {
+   "id": "terrace",
+   "name": "Terrace (paving)",
+   "printed_area": null,
+   "drawing_label": "Paving",
+   "role": "Main exterior arrival and MAIN ENTRANCE (latest instruction)",
+   "poly": [
+    [
+     -2.501,
+     -2.702
+    ],
+    [
+     0.755,
+     -2.702
+    ],
+    [
+     0.755,
+     -5.525
+    ],
+    [
+     3.281,
+     -5.525
+    ],
+    [
+     3.281,
+     -0.18
+    ],
+    [
+     0.18,
+     -0.18
+    ],
+    [
+     0.18,
+     0.833
+    ],
+    [
+     -0.797,
+     0.833
+    ],
+    [
+     -0.797,
+     4.378
+    ],
+    [
+     0.18,
+     4.378
+    ],
+    [
+     0.18,
+     5.38
+    ],
+    [
+     3.281,
+     5.38
+    ],
+    [
+     3.281,
+     11.363
+    ],
+    [
+     0.755,
+     11.363
+    ],
+    [
+     0.755,
+     7.902
+    ],
+    [
+     -2.501,
+     7.902
+    ]
+   ],
+   "exterior": true,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "living": {
+   "id": "living",
+   "name": "Living Room",
+   "printed_area": 45,
+   "drawing_label": "Living Room 45 m\u00b2",
+   "role": "Principal living space; arrival room from the terrace",
+   "poly": [
+    [
+     0.0,
+     0.0
+    ],
+    [
+     8.583,
+     0.0
+    ],
+    [
+     8.583,
+     5.203
+    ],
+    [
+     0.0,
+     5.203
+    ],
+    [
+     0.0,
+     4.195
+    ],
+    [
+     -0.497,
+     4.195
+    ],
+    [
+     -0.497,
+     1.016
+    ],
+    [
+     0.0,
+     1.016
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "dining": {
+   "id": "dining",
+   "name": "Dining Room",
+   "printed_area": 54,
+   "drawing_label": "Dining Room 54 m\u00b2",
+   "role": "Dining; the bar/counter sits in its west alcove (part of this room, not a separate room)",
+   "poly": [
+    [
+     3.461,
+     5.38
+    ],
+    [
+     11.522,
+     5.38
+    ],
+    [
+     11.522,
+     12.982
+    ],
+    [
+     5.722,
+     12.982
+    ],
+    [
+     5.722,
+     10.019
+    ],
+    [
+     3.461,
+     10.019
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "bar": {
+   "id": "bar",
+   "name": "Bar / counter (within Dining Room)",
+   "printed_area": null,
+   "drawing_label": "(no separate label; counter and 4 stools drawn)",
+   "role": "Counter subzone of the Dining Room; no sink, hob or appliance wall drawn",
+   "poly": [
+    [
+     3.461,
+     5.38
+    ],
+    [
+     5.722,
+     5.38
+    ],
+    [
+     5.722,
+     10.019
+    ],
+    [
+     3.461,
+     10.019
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": "dining"
+  },
+  "hall": {
+   "id": "hall",
+   "name": "Hall",
+   "printed_area": 23,
+   "drawing_label": "Hall 23 m\u00b2",
+   "role": "Secondary sitting / lounge (user label); open to the Living Room between two columns",
+   "poly": [
+    [
+     3.461,
+     -4.78
+    ],
+    [
+     8.583,
+     -4.78
+    ],
+    [
+     8.583,
+     -0.18
+    ],
+    [
+     3.461,
+     -0.18
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "entrance_hall": {
+   "id": "entrance_hall",
+   "name": "Entrance Hall",
+   "printed_area": 8,
+   "drawing_label": "Entrance Hall 8 m\u00b2",
+   "role": "Internal hall / secondary entry (original front door on its south wall)",
+   "poly": [
+    [
+     8.759,
+     -2.999
+    ],
+    [
+     11.522,
+     -2.999
+    ],
+    [
+     11.522,
+     -0.18
+    ],
+    [
+     8.759,
+     -0.18
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "corridor": {
+   "id": "corridor",
+   "name": "Corridor (unlabelled on drawing)",
+   "printed_area": null,
+   "drawing_label": "(no label)",
+   "role": "Circulation east of the Living Room, reached through the folding door; continuous with the Entrance Hall",
+   "poly": [
+    [
+     8.759,
+     -0.18
+    ],
+    [
+     11.522,
+     -0.18
+    ],
+    [
+     11.522,
+     5.203
+    ],
+    [
+     8.759,
+     5.203
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "lobby": {
+   "id": "lobby",
+   "name": "Lobby (unlabelled on drawing)",
+   "printed_area": null,
+   "drawing_label": "(no label)",
+   "role": "Circulation knuckle serving the stair hall and unsurveyed rooms; its doors stay closed in the model",
+   "poly": [
+    [
+     11.522,
+     1.45
+    ],
+    [
+     13.501,
+     1.45
+    ],
+    [
+     13.501,
+     6.664
+    ],
+    [
+     11.702,
+     6.664
+    ],
+    [
+     11.702,
+     5.203
+    ],
+    [
+     11.522,
+     5.203
+    ]
+   ],
+   "exterior": false,
+   "level": 0.0,
+   "subzone_of": null
+  },
+  "landing": {
+   "id": "landing",
+   "name": "Entrance landing (exterior)",
+   "printed_area": null,
+   "drawing_label": "(steps drawn)",
+   "role": "External landing/steps outside the original front door",
+   "poly": [
+    [
+     8.759,
+     -3.778
+    ],
+    [
+     11.702,
+     -3.778
+    ],
+    [
+     11.702,
+     -3.179
+    ],
+    [
+     8.759,
+     -3.179
+    ]
+   ],
+   "exterior": true,
+   "level": -0.15,
+   "subzone_of": null
+  }
+ },
+ "spans": {
+  "living": {
+   "width_m": 8.58,
+   "depth_m": 5.2,
+   "extra": "plus a 3.18 m x 0.50 m door recess on the west"
+  },
+  "dining": {
+   "width_m": 5.8,
+   "depth_m": 7.6,
+   "extra": "plus the west alcove 2.26 m x 4.64 m (bar)"
+  },
+  "bar": {
+   "width_m": 2.26,
+   "depth_m": 4.64,
+   "extra": "alcove of the Dining Room"
+  },
+  "hall": {
+   "width_m": 5.12,
+   "depth_m": 4.6,
+   "extra": null
+  },
+  "entrance_hall": {
+   "width_m": 2.76,
+   "depth_m": 2.82,
+   "extra": "north boundary taken at the Living Room wall line (room area 8 m\u00b2 printed)"
+  },
+  "corridor": {
+   "width_m": 2.76,
+   "depth_m": 5.38,
+   "extra": null
+  },
+  "lobby": {
+   "width_m": 1.8,
+   "depth_m": 5.21,
+   "extra": null
+  },
+  "terrace": {
+   "width_m": 5.78,
+   "depth_m": 16.89,
+   "extra": "L-shaped paving along the west side; extent read from the hatch, not dimensioned"
+  }
+ },
+ "columns": [
+  {
+   "id": "col_arch_w",
+   "c": [
+    4.373,
+    5.292
+   ],
+   "where": "arch, west"
+  },
+  {
+   "id": "col_arch_e",
+   "c": [
+    7.671,
+    5.292
+   ],
+   "where": "arch, east"
+  },
+  {
+   "id": "col_south_w",
+   "c": [
+    4.373,
+    -0.088
+   ],
+   "where": "living/hall opening, west"
+  },
+  {
+   "id": "col_south_e",
+   "c": [
+    7.671,
+    -0.088
+   ],
+   "where": "living/hall opening, east"
+  }
+ ],
+ "furniture": [
+  {
+   "id": "liv_sofa_n",
+   "kind": "sofa3",
+   "room": "living",
+   "face": "S",
+   "rect": [
+    1.192,
+    3.969,
+    3.874,
+    4.745
+   ]
+  },
+  {
+   "id": "liv_arm_1",
+   "kind": "armchair",
+   "room": "living",
+   "face": "E",
+   "rect": [
+    0.663,
+    3.016,
+    1.298,
+    3.581
+   ]
+  },
+  {
+   "id": "liv_arm_2",
+   "kind": "armchair",
+   "room": "living",
+   "face": "E",
+   "rect": [
+    0.663,
+    2.134,
+    1.298,
+    2.769
+   ]
+  },
+  {
+   "id": "liv_sofa_e",
+   "kind": "sofa2",
+   "room": "living",
+   "face": "W",
+   "rect": [
+    3.803,
+    1.923,
+    4.473,
+    3.792
+   ]
+  },
+  {
+   "id": "liv_ottoman",
+   "kind": "ottoman",
+   "room": "living",
+   "rect": [
+    2.604,
+    1.499,
+    3.239,
+    2.099
+   ]
+  },
+  {
+   "id": "liv_coffee_1",
+   "kind": "round_table",
+   "room": "living",
+   "c": [
+    2.145,
+    3.087
+   ],
+   "d": 0.9,
+   "h": 0.42
+  },
+  {
+   "id": "liv_coffee_2",
+   "kind": "round_table",
+   "room": "living",
+   "c": [
+    2.956,
+    2.805
+   ],
+   "d": 0.55,
+   "h": 0.5
+  },
+  {
+   "id": "liv_rug",
+   "kind": "rug",
+   "room": "living",
+   "rect": [
+    0.981,
+    1.817,
+    4.05,
+    4.18
+   ]
+  },
+  {
+   "id": "liv_lamp_1",
+   "kind": "floor_lamp",
+   "room": "living",
+   "c": [
+    0.945,
+    4.251
+   ]
+  },
+  {
+   "id": "liv_lamp_2",
+   "kind": "floor_lamp",
+   "room": "living",
+   "c": [
+    4.12,
+    1.605
+   ]
+  },
+  {
+   "id": "liv_plant",
+   "kind": "plant",
+   "room": "living",
+   "c": [
+    4.297,
+    4.286
+   ]
+  },
+  {
+   "id": "din_table",
+   "kind": "dining_table",
+   "room": "dining",
+   "rect": [
+    7.666,
+    6.826,
+    9.342,
+    11.836
+   ]
+  },
+  {
+   "id": "din_chair_w0",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    7.285
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_w1",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    8.096
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_w2",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    8.908
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_w3",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    9.719
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_w4",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    10.53
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_w5",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    7.295,
+    11.342
+   ],
+   "face": "E"
+  },
+  {
+   "id": "din_chair_e0",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    7.285
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_e1",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    8.096
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_e2",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    8.908
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_e3",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    9.719
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_e4",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    10.53
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_e5",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    9.712,
+    11.342
+   ],
+   "face": "W"
+  },
+  {
+   "id": "din_chair_s1",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    8.107,
+    6.473
+   ],
+   "face": "N"
+  },
+  {
+   "id": "din_chair_s2",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    8.901,
+    6.473
+   ],
+   "face": "N"
+  },
+  {
+   "id": "din_chair_n1",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    8.107,
+    12.188
+   ],
+   "face": "S"
+  },
+  {
+   "id": "din_chair_n2",
+   "kind": "dining_chair",
+   "room": "dining",
+   "c": [
+    8.901,
+    12.188
+   ],
+   "face": "S"
+  },
+  {
+   "id": "bar_counter",
+   "kind": "bar_counter",
+   "room": "dining",
+   "ret": [
+    5.115,
+    8.604,
+    5.726,
+    9.299
+   ],
+   "rect": [
+    3.489,
+    7.997,
+    5.726,
+    8.604
+   ]
+  },
+  {
+   "id": "bar_stool_1",
+   "kind": "stool",
+   "room": "dining",
+   "c": [
+    3.979,
+    7.602
+   ]
+  },
+  {
+   "id": "bar_stool_2",
+   "kind": "stool",
+   "room": "dining",
+   "c": [
+    4.614,
+    7.602
+   ]
+  },
+  {
+   "id": "bar_stool_3",
+   "kind": "stool",
+   "room": "dining",
+   "c": [
+    5.426,
+    7.602
+   ]
+  },
+  {
+   "id": "bar_stool_4",
+   "kind": "stool",
+   "room": "dining",
+   "c": [
+    6.061,
+    8.273
+   ]
+  },
+  {
+   "id": "din_console",
+   "kind": "console",
+   "room": "dining",
+   "items_round": [
+    11.786,
+    10.403,
+    9.712,
+    8.446,
+    7.694,
+    6.428
+   ],
+   "items_rect": [
+    10.866,
+    8.848,
+    6.886
+   ],
+   "note": "Long unit drawn along the east wall with round and rectangular fittings; the drawing does not identify them",
+   "rect": [
+    10.95,
+    6.156,
+    11.522,
+    12.118
+   ]
+  },
+  {
+   "id": "din_planter_1",
+   "kind": "planter",
+   "room": "dining",
+   "c": [
+    7.366,
+    12.753
+   ]
+  },
+  {
+   "id": "din_planter_2",
+   "kind": "planter",
+   "room": "dining",
+   "c": [
+    9.553,
+    12.753
+   ]
+  },
+  {
+   "id": "hall_sofa_w",
+   "kind": "sofa3",
+   "room": "hall",
+   "face": "E",
+   "rect": [
+    4.614,
+    -3.933,
+    5.532,
+    -1.041
+   ]
+  },
+  {
+   "id": "hall_sofa_e",
+   "kind": "sofa3",
+   "room": "hall",
+   "face": "W",
+   "rect": [
+    7.613,
+    -3.933,
+    8.53,
+    -1.041
+   ]
+  },
+  {
+   "id": "hall_arm_1",
+   "kind": "armchair",
+   "room": "hall",
+   "face": "S",
+   "rect": [
+    5.779,
+    -1.358,
+    6.519,
+    -0.758
+   ]
+  },
+  {
+   "id": "hall_arm_2",
+   "kind": "armchair",
+   "room": "hall",
+   "face": "S",
+   "rect": [
+    6.59,
+    -1.358,
+    7.295,
+    -0.758
+   ]
+  },
+  {
+   "id": "hall_arm_3",
+   "kind": "armchair",
+   "room": "hall",
+   "face": "N",
+   "rect": [
+    5.779,
+    -4.251,
+    6.519,
+    -3.616
+   ]
+  },
+  {
+   "id": "hall_arm_4",
+   "kind": "armchair",
+   "room": "hall",
+   "face": "N",
+   "rect": [
+    6.59,
+    -4.251,
+    7.295,
+    -3.616
+   ]
+  },
+  {
+   "id": "hall_coffee",
+   "kind": "square_table",
+   "room": "hall",
+   "h": 0.42,
+   "rect": [
+    6.202,
+    -2.91,
+    7.013,
+    -2.099
+   ]
+  },
+  {
+   "id": "hall_cabinet",
+   "kind": "cabinet_small",
+   "room": "hall",
+   "rect": [
+    5.461,
+    -4.78,
+    5.814,
+    -4.498
+   ]
+  }
+ ],
+ "luminaires": [
+  {
+   "id": "L_liv_pend",
+   "kind": "pendant",
+   "room": "living",
+   "c": [
+    2.533,
+    2.981
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl0",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    1.051,
+    1.041
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl1",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    1.051,
+    3.863
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl2",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    4.755,
+    1.041
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl3",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    4.755,
+    3.863
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl4",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    7.225,
+    1.041
+   ],
+   "face": null
+  },
+  {
+   "id": "L_liv_dl5",
+   "kind": "downlight",
+   "room": "living",
+   "c": [
+    7.225,
+    3.863
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_p1",
+   "kind": "pendant",
+   "room": "dining",
+   "c": [
+    8.495,
+    7.567
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_p2",
+   "kind": "pendant",
+   "room": "dining",
+   "c": [
+    8.495,
+    9.331
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_p3",
+   "kind": "pendant",
+   "room": "dining",
+   "c": [
+    8.495,
+    11.095
+   ],
+   "face": null
+  },
+  {
+   "id": "L_bar_p1",
+   "kind": "pendant_small",
+   "room": "dining",
+   "c": [
+    4.05,
+    8.308
+   ],
+   "face": null
+  },
+  {
+   "id": "L_bar_p2",
+   "kind": "pendant_small",
+   "room": "dining",
+   "c": [
+    5.108,
+    8.308
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl0",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    6.519,
+    5.98
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl1",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    10.753,
+    5.98
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl2",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    6.519,
+    12.33
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl3",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    10.753,
+    12.33
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl4",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    4.403,
+    5.98
+   ],
+   "face": null
+  },
+  {
+   "id": "L_din_dl5",
+   "kind": "downlight",
+   "room": "dining",
+   "c": [
+    4.403,
+    9.507
+   ],
+   "face": null
+  },
+  {
+   "id": "L_hall_pend",
+   "kind": "pendant",
+   "room": "hall",
+   "c": [
+    5.99,
+    -2.487
+   ],
+   "face": null
+  },
+  {
+   "id": "L_hall_dl0",
+   "kind": "downlight",
+   "room": "hall",
+   "c": [
+    4.05,
+    -4.251
+   ],
+   "face": null
+  },
+  {
+   "id": "L_hall_dl1",
+   "kind": "downlight",
+   "room": "hall",
+   "c": [
+    7.93,
+    -4.251
+   ],
+   "face": null
+  },
+  {
+   "id": "L_hall_dl2",
+   "kind": "downlight",
+   "room": "hall",
+   "c": [
+    4.05,
+    -0.723
+   ],
+   "face": null
+  },
+  {
+   "id": "L_hall_dl3",
+   "kind": "downlight",
+   "room": "hall",
+   "c": [
+    7.93,
+    -0.723
+   ],
+   "face": null
+  },
+  {
+   "id": "L_eh_pend",
+   "kind": "pendant_small",
+   "room": "entrance_hall",
+   "c": [
+    10.118,
+    -1.605
+   ],
+   "face": null
+  },
+  {
+   "id": "L_cor_dl1",
+   "kind": "downlight",
+   "room": "corridor",
+   "c": [
+    10.118,
+    1.041
+   ],
+   "face": null
+  },
+  {
+   "id": "L_cor_dl2",
+   "kind": "downlight",
+   "room": "corridor",
+   "c": [
+    10.118,
+    3.863
+   ],
+   "face": null
+  },
+  {
+   "id": "L_lob_dl",
+   "kind": "downlight",
+   "room": "lobby",
+   "c": [
+    12.587,
+    4.039
+   ],
+   "face": null
+  },
+  {
+   "id": "L_ext_1",
+   "kind": "wall_light",
+   "room": "terrace",
+   "c": [
+    0.134,
+    0.335
+   ],
+   "face": "W"
+  },
+  {
+   "id": "L_ext_2",
+   "kind": "wall_light",
+   "room": "terrace",
+   "c": [
+    0.134,
+    4.851
+   ],
+   "face": "W"
+  },
+  {
+   "id": "L_ext_3",
+   "kind": "wall_light",
+   "room": "terrace",
+   "c": [
+    3.239,
+    -0.653
+   ],
+   "face": "W"
+  },
+  {
+   "id": "L_ext_4",
+   "kind": "wall_light",
+   "room": "terrace",
+   "c": [
+    3.239,
+    9.507
+   ],
+   "face": "W"
+  },
+  {
+   "id": "L_ext_5",
+   "kind": "wall_light",
+   "room": "landing",
+   "c": [
+    8.848,
+    -3.122
+   ],
+   "face": "S"
+  }
+ ],
+ "massing": [
+  {
+   "id": "ne_unsurveyed",
+   "rect": [
+    11.702,
+    6.84,
+    15.692,
+    13.162
+   ],
+   "label": "ROOM NOT SURVEYED (north-east)"
+  },
+  {
+   "id": "se_unsurveyed",
+   "rect": [
+    11.702,
+    -4.957,
+    15.692,
+    1.27
+   ],
+   "label": "ROOM NOT SURVEYED (south-east)"
+  },
+  {
+   "id": "stair_hall",
+   "rect": [
+    13.681,
+    1.27,
+    15.692,
+    6.84
+   ],
+   "label": "Stair hall (stair drawn, not surveyed)"
+  }
+ ],
+ "removed_wall": {
+  "rect": [
+   11.522,
+   1.45,
+   11.702,
+   5.203
+  ],
+  "note": "drawn dashed on the proposed plan: existing wall removed"
+ }
+}

@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+M03,Walls,plaster,#E4C9B4,all rooms
+M03,Ceilings,flat plaster with a recessed linear light,#EFE6D7,all rooms
+M03,Floor,continuous,#CDBB9F,all interior rooms
+M03,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+M03,Exterior walls,render/plaster,#E0C7B2,west facade and visible envelope
+M03,"Doors, windows, joinery","timber, finished to colour",#C4A77F,all doors and frames
+M03,Bar counter,wood,#C4A77F,dining alcove
+M03,Sofas,"curved form, plinth base",#EFE6D7,"living, hall"
+M03,Armchairs,,#A55E44,"living, hall"
+M03,Dining chairs,shell,#C4A77F,dining
+M03,Cushions / accents,,#A55E44,"living, hall"
+M03,Rug,plain,#EFE6D7,living
+M03,Curtains,,#EFE6D7,beside glazed openings
+M03,Metal and luminaires,black linear bars,#45413C,"pendants, lamps, hardware"

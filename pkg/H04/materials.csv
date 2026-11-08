@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+H04,Walls,plaster,#E8E3D4,all rooms
+H04,Ceilings,timber slat ceiling,#E8E3D4,all rooms
+H04,Floor,terrazzo,#B9B1A0,all interior rooms
+H04,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+H04,Exterior walls,render/plaster,#E2DDCE,west facade and visible envelope
+H04,"Doors, windows, joinery","timber, finished to colour",#965C40,all doors and frames
+H04,Bar counter,stone,#B9B1A0,dining alcove
+H04,Sofas,"frame form, metal base",#405C4D,"living, hall"
+H04,Armchairs,,#BE943C,"living, hall"
+H04,Dining chairs,frame,#405C4D,dining
+H04,Cushions / accents,,#BE943C,"living, hall"
+H04,Rug,blocks,#E8E3D4,living
+H04,Curtains,,#E8E3D4,beside glazed openings
+H04,Metal and luminaires,slender black frames with linen shades,#37352E,"pendants, lamps, hardware"

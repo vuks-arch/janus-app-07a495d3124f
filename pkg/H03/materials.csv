@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+H03,Walls,plaster,#CDB6A0,all rooms
+H03,Ceilings,tray ceiling: dropped margin with a light slot around a raised centre,#EDE3D2,all rooms
+H03,Floor,terrazzo,#BFAF98,all interior rooms
+H03,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+H03,Exterior walls,render/plaster,#C9B29B,west facade and visible envelope
+H03,"Doors, windows, joinery","timber, finished to colour",#A87345,all doors and frames
+H03,Bar counter,rounded,#BFAF98,dining alcove
+H03,Sofas,"sculpt form, plinth base",#705448,"living, hall"
+H03,Armchairs,,#EDE3D2,"living, hall"
+H03,Dining chairs,shell,#705448,dining
+H03,Cushions / accents,,#AA7860,"living, hall"
+H03,Rug,plain,#EDE3D2,living
+H03,Curtains,,#EDE3D2,beside glazed openings
+H03,Metal and luminaires,globe clusters,#AA7860,"pendants, lamps, hardware"

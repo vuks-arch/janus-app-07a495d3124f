@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+T03,Walls,plaster,#D8D0C1,all rooms
+T03,Ceilings,perimeter cove with a concealed light slot,#F0EBDF,all rooms
+T03,Floor,planks,#B78C59,all interior rooms
+T03,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+T03,Exterior walls,render/plaster,#D3CBBC,west facade and visible envelope
+T03,"Doors, windows, joinery","timber, finished to colour",#F0EBDF,all doors and frames
+T03,Bar counter,wood,#B78C59,dining alcove
+T03,Sofas,"low form, tapered base",#587B79,"living, hall"
+T03,Armchairs,,#AF755E,"living, hall"
+T03,Dining chairs,upholstered,#587B79,dining
+T03,Cushions / accents,,#AF755E,"living, hall"
+T03,Rug,weave,#D8D0C1,living
+T03,Curtains,,#F0EBDF,beside glazed openings
+T03,Metal and luminaires,fabric drum pendants,#A6A59E,"pendants, lamps, hardware"

@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+M01,Walls,plaster,#E8E0CD,all rooms
+M01,Ceilings,exposed timber beams on a plaster field,#E8E0CD,all rooms
+M01,Floor,tiles,#B56F4C,all interior rooms
+M01,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+M01,Exterior walls,render/plaster,#E1D8C3,west facade and visible envelope
+M01,"Doors, windows, joinery","timber, finished to colour",#785238,all doors and frames
+M01,Bar counter,wood,#785238,dining alcove
+M01,Sofas,"slip form, block base",#777C58,"living, hall"
+M01,Armchairs,,#C6AD79,"living, hall"
+M01,Dining chairs,rush,#C6AD79,dining
+M01,Cushions / accents,,#B56F4C,"living, hall"
+M01,Rug,weave,#C6AD79,living
+M01,Curtains,,#E8E0CD,beside glazed openings
+M01,Metal and luminaires,iron lanterns,#43413A,"pendants, lamps, hardware"

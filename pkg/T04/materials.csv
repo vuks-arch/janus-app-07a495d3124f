@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+T04,Walls,plaster with panels,#E9E4D8,all rooms
+T04,Ceilings,broad flat cove band,#E9E4D8,all rooms
+T04,Floor,planks,#4a3a31,all interior rooms
+T04,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+T04,Exterior walls,render/plaster,#E2DCCF,west facade and visible envelope
+T04,"Doors, windows, joinery","timber, finished to colour",#3E3029,all doors and frames
+T04,Bar counter,wood,#3E3029,dining alcove
+T04,Sofas,"tailored form, block base",#66705A,"living, hall"
+T04,Armchairs,,#C5B8A0,"living, hall"
+T04,Dining chairs,upholstered,#66705A,dining
+T04,Cushions / accents,,#B18C48,"living, hall"
+T04,Rug,plain,#C5B8A0,living
+T04,Curtains,,#E9E4D8,beside glazed openings
+T04,Metal and luminaires,two-tier sculptural discs,#383A37,"pendants, lamps, hardware"

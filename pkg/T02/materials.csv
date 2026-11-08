@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+T02,Walls,plaster with frames,#EEE9DC,all rooms
+T02,Ceilings,stepped plaster cornice,#EEE9DC,all rooms
+T02,Floor,stone,#D5C8B0,all interior rooms
+T02,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+T02,Exterior walls,render/plaster,#E6E0D2,west facade and visible envelope
+T02,"Doors, windows, joinery","timber, finished to colour",#EEE9DC,all doors and frames
+T02,Bar counter,stone,#D5C8B0,dining alcove
+T02,Sofas,"tailored form, tapered base",#B7AD9C,"living, hall"
+T02,Armchairs,,#344454,"living, hall"
+T02,Dining chairs,upholstered,#B7AD9C,dining
+T02,Cushions / accents,,#344454,"living, hall"
+T02,Rug,border,#D9CEB8,living
+T02,Curtains,,#D9CEB8,beside glazed openings
+T02,Metal and luminaires,bronze lantern pendants,#594B3C,"pendants, lamps, hardware"

@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+T01,Walls,plaster with wainscot,#E8DFCD,all rooms
+T01,Ceilings,plaster cornice with a ceiling rose at the pendants,#E8DFCD,all rooms
+T01,Floor,herringbone,#6a4a36,all interior rooms
+T01,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+T01,Exterior walls,render/plaster,#DDD3BF,west facade and visible envelope
+T01,"Doors, windows, joinery","timber, finished to colour",#604332,all doors and frames
+T01,Bar counter,wood,#604332,dining alcove
+T01,Sofas,"rolled form, turned base",#77765A,"living, hall"
+T01,Armchairs,,#6E3036,"living, hall"
+T01,Dining chairs,upholstered,#6E3036,dining
+T01,Cushions / accents,,#CABA9A,"living, hall"
+T01,Rug,border,#CABA9A,living
+T01,Curtains,,#CABA9A,beside glazed openings
+T01,Metal and luminaires,brass ring chandeliers,#A58B55,"pendants, lamps, hardware"

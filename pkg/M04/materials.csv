@@ -1,0 +1,15 @@
+scheme,surface,material / treatment,colour hex,where
+M04,Walls,plaster,#EEE9DD,all rooms
+M04,Ceilings,"flat plaster, no trim",#EEE9DD,all rooms
+M04,Floor,stone,#D7CCB7,all interior rooms
+M04,Paving,"existing paving, neutral paver (unchanged in every scheme)",#bfb39f,terrace
+M04,Exterior walls,render/plaster,#E8E2D4,west facade and visible envelope
+M04,"Doors, windows, joinery","timber, finished to colour",#CDBD9F,all doors and frames
+M04,Bar counter,stone,#D7CCB7,dining alcove
+M04,Sofas,"low form, plinth base",#C7BEAA,"living, hall"
+M04,Armchairs,,#C7BEAA,"living, hall"
+M04,Dining chairs,frame,#CDBD9F,dining
+M04,Cushions / accents,,#F5F0E5,"living, hall"
+M04,Rug,plain,#F5F0E5,living
+M04,Curtains,,#C7BEAA,beside glazed openings
+M04,Metal and luminaires,flat disc pendants,#969286,"pendants, lamps, hardware"

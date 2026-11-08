@@ -1,0 +1,14 @@
+id,wall,kind,width m,label / drawing note
+main_door,bay_w,door_double_in,3.0,"MAIN ENTRANCE: exterior double door, terrace to Living Room (drawing note: 'Wall shift and window replaced by door')"
+liv_hall_opening,liv_south,opening,4.0,"Open between Living Room and Hall, flanked by two columns (existing; no change note on drawing)"
+arch,liv_dining,arch,4.0,"Arch between Living Room and Dining Room, flanked by two columns (drawing note: 'Wall replaced by arch')"
+folding_door,east_spine,folding4,3.0,"Four-panel folding door, Living Room to corridor (drawing note: 'Opening replaced by door')"
+din_screen,din_alcove_w,glazed_screen,3.21,"Glazed screen to paving with a single 1.0 m door at its south end, fixed panel, then window (drawing note: 'Window replaced by door')"
+din_win_w,din_north,window,1.5,Window 1.5 m
+din_win_e,din_north,window,1.5,Window 1.5 m
+hall_door,hall_west,door_double_sidelights,3.0,"Exterior double door with fixed side panels, paving to Hall (drawing note: 'Window replaced by door')"
+eh_door,eh_south,door_single_side,2.01,"Original entrance: single leaf (1.3 m) with side panel (0.66 m), Entrance Hall to south landing/steps"
+c2_door_s,c2_south,door_single,1.0,Door 1.0 m into ROOM NOT SURVEYED (south-east); kept closed
+c2_door_e,c2_east_s,door_single,1.0,"Door 1.0 m east, area beyond not surveyed; kept closed"
+sliding_door,c2_east_n,sliding,2.15,'Sliding Door' (drawing label; drawn as folding panels) 2.15 m to stair hall; area beyond not surveyed; kept closed
+c2_door_n,c2_north,door_single,1.0,Door 1.0 m into ROOM NOT SURVEYED (north-east); kept closed

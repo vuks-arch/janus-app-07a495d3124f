@@ -29,7 +29,7 @@ svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 .brand .name i{color:var(--accent);font-style:italic}
 .brand .sub{color:var(--fg-3);font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .acts{display:flex;gap:6px;flex-shrink:0}
-.btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);background:var(--bg-2);font-weight:500;font-size:13px;transition:background .15s,border-color .15s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:7px;height:34px;text-decoration:none;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);background:var(--bg-2);font-weight:500;font-size:13px;transition:background .15s,border-color .15s;white-space:nowrap}
 .btn:hover{background:var(--bg-3);border-color:var(--fg-3)}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
@@ -55,7 +55,13 @@ svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 /* stage: fills the rest */
 .stage{flex:1 1 auto;min-height:0;position:relative;margin:10px var(--gr) 0 var(--gl);display:flex;align-items:center;justify-content:center}
 .frame{position:relative;height:100%;aspect-ratio:16/9;max-width:100%;background:#000;border-radius:10px;overflow:hidden}
-.frame.cover{position:absolute;inset:0;height:auto;aspect-ratio:auto}
+.frame.fill,.frame.cover{position:absolute;inset:0;height:auto;aspect-ratio:auto}
+.frame.fill img,.frame.cover img{object-fit:cover}
+.frame.fill.fit img{object-fit:contain}
+.frame.fill.kb img.on{animation-name:kbpan}
+@keyframes kbpan{from{object-position:18% 50%;transform:scale(1)}to{object-position:82% 50%;transform:scale(1.02)}}
+.frame.fill.kb.alt img.on{animation-name:kbpan2}
+@keyframes kbpan2{from{object-position:82% 50%;transform:scale(1.02)}to{object-position:18% 50%;transform:scale(1)}}
 .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease}
 .frame img.on{opacity:1}
 .frame.cover img{object-fit:cover}
@@ -63,7 +69,7 @@ svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 @keyframes kb{from{transform:scale(1)}to{transform:scale(1.05)}}
 .frame.kb.alt img.on{animation-name:kb2}
 @keyframes kb2{from{transform:scale(1.05) translateX(-1%)}to{transform:scale(1) translateX(0)}}
-@media (prefers-reduced-motion:reduce){.frame img{transition:none}.frame.kb img.on,.frame.kb.alt img.on{animation:none}}
+@media (prefers-reduced-motion:reduce){.frame img{transition:none}.frame.kb img.on,.frame.kb.alt img.on,.frame.fill.kb img.on,.frame.fill.kb.alt img.on{animation:none}}
 .nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(14,12,10,.5);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background .15s,opacity .2s}
 .nav:hover{background:rgba(14,12,10,.85)}
 .nav.prev{left:12px}.nav.next{right:12px}
@@ -144,14 +150,14 @@ body.theater .frame{border-radius:0;position:absolute;inset:0;height:auto;aspect
   .thumb{width:84px}
   .status .hint{display:none}
 }
-@media (orientation:portrait) and (max-width:760px){ .frame{position:absolute;inset:0;height:auto;aspect-ratio:auto} .frame img{object-fit:cover} .frame.fit img{object-fit:contain} }
+
 /* short screens (laptops, landscape phones): thinner chrome so the photograph keeps the majority of the screen */
 @media (max-height:800px){
   .top{height:46px}.brand .name{font-size:22px}.btn{height:32px}
   .bar{padding-block:5px}.style{height:28px}.var{height:32px}
   .stage{margin-top:8px}.strip{padding-block:6px 0}.thumb{width:72px}.status{height:24px;font-size:11px}
 }
-@media (max-height:480px){ .strip,.status{display:none}.stage{margin-bottom:max(6px,env(safe-area-inset-bottom,0px))} .frame{position:absolute;inset:0;height:auto;aspect-ratio:auto} .frame img{object-fit:cover} .frame.fit img{object-fit:contain} }
+@media (max-height:480px){ .strip,.status{display:none}.stage{margin:6px var(--gr) max(6px,env(safe-area-inset-bottom,0px)) var(--gl)} .top{height:40px}.brand .name{font-size:20px}.btn{height:30px}.bar{padding-block:4px}.style{height:26px}.var{height:28px} }
 </style>
 
 <div class="shell">
@@ -159,6 +165,7 @@ body.theater .frame{border-radius:0;position:absolute;inset:0;height:auto;aspect
     <div class="brand"><span class="name">Golf <i>Photo Tour</i></span><span class="sub" id="crumb"></span></div>
     <div class="acts">
       <button class="btn" id="infoBtn" aria-pressed="false" title="About this scheme (I)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="txt">Scheme</span></button>
+      <a class="btn" id="walkBtn" href="walk.html#free-T01" title="Walk through this scheme yourself in 3D (W)"><svg viewBox="0 0 24 24"><path d="M13 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM9 21l2.2-6.5L9 12l-3 2.5M15 21l-2-5-3-3 1.5-5 3 1.5 3 3"/></svg><span class="txt">Walk in 3D</span></a>
       <button class="btn" id="cmpBtn" title="Compare this room across schemes (C)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg><span class="txt">Compare</span></button>
       <button class="btn primary" id="tourBtn" title="Play the full tour through all twelve schemes"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class="txt">Full tour</span></button>
     </div>
@@ -183,13 +190,14 @@ body.theater .frame{border-radius:0;position:absolute;inset:0;height:auto;aspect
     </div>
   </section>
   <div class="strip" id="strip" role="listbox" aria-label="Photographs of this scheme"></div>
-  <div class="status"><span><b id="roomNow"></b> <span id="roomCount"></span></span><span class="hint"><kbd>←</kbd> <kbd>→</kbd> photos &nbsp; <kbd>1</kbd>–<kbd>4</kbd> variation &nbsp; <kbd>T</kbd> <kbd>M</kbd> <kbd>H</kbd> style &nbsp; <kbd>Space</kbd> play &nbsp; <kbd>C</kbd> compare &nbsp; <kbd>I</kbd> scheme</span></div>
+  <div class="status"><span><b id="roomNow"></b> <span id="roomCount"></span></span><span class="hint"><kbd>←</kbd> <kbd>→</kbd> photos &nbsp; <kbd>1</kbd>–<kbd>4</kbd> variation &nbsp; <kbd>T</kbd> <kbd>M</kbd> <kbd>H</kbd> style &nbsp; <kbd>Space</kbd> play &nbsp; <kbd>C</kbd> compare &nbsp; <kbd>I</kbd> scheme &nbsp; <kbd>W</kbd> walk in 3D</span></div>
 </div>
 
 <aside class="drawer" id="drawer" hidden aria-label="About this scheme">
   <button class="close" id="drawerClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   <div id="about"></div>
   <h3>Palette</h3><div class="pal" id="pal"></div>
+  <h3>Walk it yourself</h3><p style="margin-top:0">The 3D walkthrough opens this scheme in self-guided mode: move with the arrow keys or the on-screen pad, look around by dragging, switch day and night, and jump between rooms. It is the real-time model the photographs were made from, so it reads like a game rather than a photo.</p><div style="margin-top:10px"><a class="btn primary" id="walkBtn2" href="walk.html#free-T01">Open the 3D walkthrough</a></div>
   <h3>Files</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="vidBtn"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg><span>Save this scheme's tour video</span></button></div>
   <div class="fine">
     <p><b>What these pictures are.</b> The renovation does not exist yet, so none of this is a photograph of a real room. Every image comes from one 3D model of the proposed ground floor (drawing A12-001): the light is simulated physically, then an image model turns the simulation into a camera-like photograph while keeping layout, furniture, colours and camera angle. Fine details such as fabric patterns, decor and the view through the windows are the model's plausible interpretation, not a specification.</p>
@@ -236,7 +244,7 @@ function show(){
   $('#roomNow').textContent=`${p.label} · ${p.tod==='night'?'evening, lamps on':'daylight'}`;
   $('#counter').textContent=`${state.i+1} / ${list.length}`;
   $('#crumb').textContent=`${s.id} ${s.name} · ${FAMLONG[s.fam]} · ${STAGE[s.stage-1]}`;
-  document.title=`${s.id} ${s.name} · Golf Photo Tour`;
+  document.title=`${s.id} ${s.name} · Golf Photo Tour`; $('#walkBtn').href=`walk.html#free-${s.id}`;
   [...$('#strip').children].forEach((t,k)=>{ t.setAttribute('aria-current', k===state.i?'true':'false'); if(k===state.i) t.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduce?'auto':'smooth'}); });
   const pre=list[(state.i+1)%list.length]; if(pre){ const im=new Image(); im.src=pre.src; }
   if(state.playing) restartProgress();
@@ -253,6 +261,7 @@ function renderStrip(){
 }
 function renderDrawer(){
   const s=S[id()];
+  $('#walkBtn2').href=`walk.html#free-${s.id}`;
   $('#about').innerHTML=`<div class="k">${s.id} · ${FAMLONG[s.fam]} · ${STAGE[s.stage-1]}</div><div class="n">${s.name.split(' ').slice(0,-1).join(' ')} <i>${s.name.split(' ').slice(-1)}</i></div><p>${s.blurb}</p>`;
   $('#pal').innerHTML=s.palette.map(p=>`<div><i style="background:${p[1]}"></i><span>${p[0]}<em>${p[2]}</em></span><small>${p[1]}</small></div>`).join('');
 }
@@ -275,12 +284,14 @@ $('#strip').addEventListener('click', e=>{ const b=e.target.closest('.thumb'); i
 $('#prevBtn').onclick=()=>step(-1); $('#nextBtn').onclick=()=>step(1);
 $('#playBtn').onclick=()=>setPlaying(!(state.playing&&!state.full), false);
 $('#tourBtn').onclick=()=>{ if(state.playing&&state.full) setPlaying(false); else setPlaying(true,true); };
-$('#fitBtn').onclick=()=>{ const coverDefault=matchMedia('(orientation: portrait) and (max-width: 760px), (max-height: 480px)').matches; if(coverDefault) frame.classList.toggle('fit'); else frame.classList.toggle('cover'); };
+function fitFrame(){ const st=$('.stage').getBoundingClientRect(); if(!st.width||!st.height) return; const fill=(st.width/st.height) < (16/9)*0.97; frame.classList.toggle('fill', fill); if(!fill) frame.classList.remove('fit'); }
+addEventListener('resize', fitFrame); addEventListener('orientationchange', ()=>setTimeout(fitFrame,150)); fitFrame();
+$('#fitBtn').onclick=()=>{ if(frame.classList.contains('fill')) frame.classList.toggle('fit'); else frame.classList.toggle('cover'); };
 $('#infoBtn').onclick=()=>{ $('#drawer').hidden?openDrawer():closeDrawer(); }; $('#drawerClose').onclick=closeDrawer;
 $('#fsBtn').onclick=async()=>{ try{ if(document.fullscreenElement){ await document.exitFullscreen(); } else if(frame.requestFullscreen){ await frame.requestFullscreen(); } else { document.body.classList.toggle('theater'); } }catch(e){ document.body.classList.toggle('theater'); } };
 document.addEventListener('keydown', e=>{ if(e.target.matches('input,textarea')) return; const k=e.key.toLowerCase();
   if(e.key==='ArrowRight') step(1); else if(e.key==='ArrowLeft') step(-1);
-  else if(e.key===' '){ e.preventDefault(); setPlaying(!state.playing, state.full); } else if(k==='f') $('#fsBtn').click(); else if(k==='c'){ $('#cmp').hidden?openCompare():closeCompare(); } else if(k==='i') $('#infoBtn').click();
+  else if(e.key===' '){ e.preventDefault(); setPlaying(!state.playing, state.full); } else if(k==='f') $('#fsBtn').click(); else if(k==='c'){ $('#cmp').hidden?openCompare():closeCompare(); } else if(k==='i') $('#infoBtn').click(); else if(k==='w') $('#walkBtn').click();
   else if(k==='escape'){ if(!$('#cmp').hidden) closeCompare(); else if(!$('#drawer').hidden) closeDrawer(); else document.body.classList.remove('theater'); }
   else if(e.key.length===1&&'1234'.includes(e.key)) setScheme(state.fam, +e.key); else if(k==='t'||k==='m'||k==='h') setScheme(k.toUpperCase(), state.stage); });
 let sx=null, sy=null; frame.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});

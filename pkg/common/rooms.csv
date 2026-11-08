@@ -1,0 +1,9 @@
+room,printed area m2,drawing label,measured width m,measured depth m,note,role
+Terrace (paving),,Paving,5.78,16.89,"L-shaped paving along the west side; extent read from the hatch, not dimensioned",Main exterior arrival and MAIN ENTRANCE (latest instruction)
+Living Room,45,Living Room 45 m²,8.58,5.2,plus a 3.18 m x 0.50 m door recess on the west,Principal living space; arrival room from the terrace
+Dining Room,54,Dining Room 54 m²,5.8,7.6,plus the west alcove 2.26 m x 4.64 m (bar),"Dining; the bar/counter sits in its west alcove (part of this room, not a separate room)"
+Hall,23,Hall 23 m²,5.12,4.6,,Secondary sitting / lounge (user label); open to the Living Room between two columns
+Entrance Hall,8,Entrance Hall 8 m²,2.76,2.82,north boundary taken at the Living Room wall line (room area 8 m² printed),Internal hall / secondary entry (original front door on its south wall)
+Corridor (unlabelled on drawing),,(no label),2.76,5.38,,"Circulation east of the Living Room, reached through the folding door; continuous with the Entrance Hall"
+Lobby (unlabelled on drawing),,(no label),1.8,5.21,,Circulation knuckle serving the stair hall and unsurveyed rooms; its doors stay closed in the model
+Entrance landing (exterior),,(steps drawn),,,,External landing/steps outside the original front door
