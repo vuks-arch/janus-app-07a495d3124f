@@ -1,5 +1,6 @@
 <title>Golf Photo Tour All Schemes</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&display=swap">
 <style>
 /* Layout concept: one screen, the photograph owns it. A slim header, a one-line picker (style, variation), then the stage fills
@@ -89,8 +90,7 @@ svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke
 /* filmstrip + status line */
 .strip{flex:none;display:flex;gap:6px;overflow-x:auto;padding-block:8px 2px;padding-left:var(--gl);padding-right:var(--gr);scrollbar-width:none;scroll-snap-type:x proximity}
 .strip::-webkit-scrollbar{display:none}
-.thumb{flex:0 0 auto;width:104px;scroll-snap-align:start;border-radius:6px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .15s;background:var(--bg-2)}
-.thumb img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.thumb{flex:0 0 auto;width:104px;aspect-ratio:16/9;scroll-snap-align:start;border-radius:6px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .15s;background:var(--bg-2) center/cover no-repeat}
 .thumb[aria-current="true"]{border-color:var(--accent)}
 .thumb.night::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.5)}
 .status{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px 12px;height:30px;padding-left:var(--gl);padding-right:var(--gr);color:var(--fg-3);font-size:12px;white-space:nowrap;overflow:hidden;margin-bottom:max(2px,env(safe-area-inset-bottom,0px))}
@@ -176,7 +176,7 @@ body.theater .frame{border-radius:0;position:absolute;inset:0;height:auto;aspect
   </div>
   <section class="stage" aria-label="Photograph">
     <div class="frame" id="frame">
-      <img id="imgA" alt=""><img id="imgB" alt="">
+      <img id="imgA" alt="" fetchpriority="high" decoding="async"><img id="imgB" alt="" fetchpriority="high" decoding="async">
       <div class="counter" id="counter"></div>
       <div class="tools">
         <button class="tool" id="playBtn" aria-pressed="false" title="Play this scheme (Space)" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>
@@ -246,7 +246,7 @@ function show(){
   $('#crumb').textContent=`${s.id} ${s.name} · ${FAMLONG[s.fam]} · ${STAGE[s.stage-1]}`;
   document.title=`${s.id} ${s.name} · Golf Photo Tour`; $('#walkBtn').href=`walk.html#free-${s.id}`;
   [...$('#strip').children].forEach((t,k)=>{ t.setAttribute('aria-current', k===state.i?'true':'false'); if(k===state.i) t.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduce?'auto':'smooth'}); });
-  const pre=list[(state.i+1)%list.length]; if(pre){ const im=new Image(); im.src=pre.src; }
+  for(const d of [1,2]){ const pre=list[(state.i+d)%list.length]; if(pre){ const im=new Image(); im.src=pre.src; } }
   if(state.playing) restartProgress();
 }
 function renderPickers(){
@@ -256,7 +256,7 @@ function renderPickers(){
 }
 function renderStrip(){
   const list=photos(id()); const night=list.filter(p=>p.tod==='night').length;
-  $('#strip').innerHTML=list.map((p,k)=>`<button class="thumb ${p.tod}" role="option" data-i="${k}" aria-current="${k===state.i}" title="${p.label}${p.tod==='night'?' · night':''}"><img src="${p.src}" alt="" loading="lazy"></button>`).join('');
+  const n=list.length; $('#strip').innerHTML=list.map((p,k)=>`<button class="thumb ${p.tod}" role="option" data-i="${k}" aria-current="${k===state.i}" title="${p.label}${p.tod==='night'?' · night':''}" aria-label="${p.label}${p.tod==='night'?', night':''}" style="background-image:url(photos/thumbs/${id()}.jpg);background-size:${n*100}% 100%;background-position:${n>1?(k*100/(n-1)).toFixed(3):0}% 0"></button>`).join('');
   $('#roomCount').textContent=`· ${list.length} photographs, ${night} at night`;
 }
 function renderDrawer(){
