@@ -38,12 +38,12 @@ jobs:
       - name: Cache stable-diffusion.cpp build
         id: sdcache
         uses: actions/cache@v4
-        with: { path: sdcpp/build/bin/sd-cli, key: "sdcli-${{ runner.os }}-v1" }
+        with: { path: sdcpp/build/bin/sd-cli, key: "sdcli-${{ runner.os }}-avx2-v2" }
       - name: Build stable-diffusion.cpp
         if: steps.sdcache.outputs.cache-hit != 'true'
         run: |
           git clone --depth 1 --recursive https://github.com/leejet/stable-diffusion.cpp sdcpp
-          cmake -S sdcpp -B sdcpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=ON -DSD_BUILD_SHARED_LIBS=OFF
+          cmake -S sdcpp -B sdcpp/build -DCMAKE_BUILD_TYPE=Release -DGGML_NATIVE=OFF -DGGML_AVX=ON -DGGML_AVX2=ON -DGGML_FMA=ON -DGGML_F16C=ON -DSD_BUILD_SHARED_LIBS=OFF  # portable build: runner CPUs differ, a native build core-dumps elsewhere
           cmake --build sdcpp/build --config Release -j4
       - name: Download model weights (FLUX.2 klein 4B, Qwen3-4B, FLUX.2 VAE)
         run: |
