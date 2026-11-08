@@ -2,188 +2,203 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&display=swap">
 <style>
-/* Layout concept: a dark cinema stage for the photographs, with the choosing done in a quiet rail beside it (style, then variation),
-   so the picture is always the biggest thing on screen. Single dark look by design: a photo gallery. */
+/* Layout concept: one screen, the photograph owns it. A slim header, a one-line picker (style, variation), then the stage fills
+   everything down to a thin filmstrip. Scheme notes live in a drawer so nothing competes with the picture. Single dark look. */
 :root{
   --bg:#141210; --bg-2:#1d1a17; --bg-3:#272320; --line:#3a342e; --line-2:#4d453d;
   --fg:#f1ebe1; --fg-2:#bfb5a7; --fg-3:#8c8276;
   --accent:#d8b67a; --accent-ink:#2a2114; --focus:#ffd98a;
   --display:"Instrument Serif",Georgia,"Times New Roman",serif; --ui:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
-  --radius:10px; --gutter-l:max(16px,env(safe-area-inset-left,0px)); --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  --gl:max(16px,env(safe-area-inset-left,0px)); --gr:max(16px,env(safe-area-inset-right,0px));
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--ui);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 var(--ui);-webkit-font-smoothing:antialiased;overflow:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 img{max-width:100%;display:block}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 
+.shell{display:flex;flex-direction:column;height:100%;min-height:0}
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;height:52px;padding-left:var(--gl);padding-right:var(--gr);border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:baseline;gap:10px;min-width:0}
-.brand .name{font-family:var(--display);font-size:26px;letter-spacing:.01em;white-space:nowrap}
+.brand .name{font-family:var(--display);font-size:24px;white-space:nowrap}
 .brand .name i{color:var(--accent);font-style:italic}
-.brand .sub{color:var(--fg-3);font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.top .acts{display:flex;gap:8px;flex-shrink:0}
-.btn{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 13px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);background:var(--bg-2);font-weight:500;font-size:13px;transition:background .15s,border-color .15s}
+.brand .sub{color:var(--fg-3);font-size:11px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acts{display:flex;gap:6px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);color:var(--fg);background:var(--bg-2);font-weight:500;font-size:13px;transition:background .15s,border-color .15s;white-space:nowrap}
 .btn:hover{background:var(--bg-3);border-color:var(--fg-3)}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn.primary:hover{filter:brightness(1.06)}
-.btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 
-/* app grid */
-.app{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;max-width:1500px;margin:0 auto;padding-block:18px 28px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
-@media (max-width:1000px){.app{grid-template-columns:minmax(0,1fr)}}
-
-/* stage */
-.stage{min-width:0}
-.frame{position:relative;aspect-ratio:16/9;max-width:100%;background:#000;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
-.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
-.frame img.on{opacity:1}
-.frame.kb img.on{animation:kb 7s ease-out forwards}
-@keyframes kb{from{transform:scale(1)}to{transform:scale(1.055)}}
-.frame.kb.alt img.on{animation-name:kb2}
-@keyframes kb2{from{transform:scale(1.055) translateX(-1%)}to{transform:scale(1) translateX(0)}}
-@media (prefers-reduced-motion:reduce){.frame img{transition:none}.frame.kb img.on,.frame.kb.alt img.on{animation:none}}
-.nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(14,12,10,.55);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background .15s}
-.nav:hover{background:rgba(14,12,10,.85)}
-.nav.prev{left:14px}.nav.next{right:14px}
-.nav svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.tools{position:absolute;right:14px;top:14px;display:flex;gap:6px}
-.tool{width:38px;height:38px;border-radius:50%;background:rgba(14,12,10,.55);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px)}
-.tool:hover{background:rgba(14,12,10,.85)}
-.tool[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.tool svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.12)}
-.progress i{display:block;height:100%;width:0;background:var(--accent)}
-.frame.playing .progress i{animation:prog var(--dur,5.5s) linear forwards}
-@keyframes prog{from{width:0}to{width:100%}}
-.counter{position:absolute;left:18px;top:16px;font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.85);background:rgba(14,12,10,.5);padding:4px 9px;border-radius:999px;backdrop-filter:blur(6px);font-variant-numeric:tabular-nums}
-
-/* filmstrip */
-.strip{display:flex;gap:8px;overflow-x:auto;padding-block:12px 4px;scrollbar-width:thin;scroll-snap-type:x proximity}
-.strip::-webkit-scrollbar{height:6px}.strip::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
-.thumb{flex:0 0 auto;width:136px;scroll-snap-align:start;border-radius:8px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .15s,transform .15s;background:var(--bg-2)}
-.thumb img{width:100%;aspect-ratio:16/9;object-fit:cover}
-.thumb span{position:absolute;left:0;right:0;bottom:0;padding:14px 8px 5px;font-size:11px;line-height:1.2;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));text-align:left}
-.thumb[aria-current="true"]{border-color:var(--accent)}
-.thumb:hover{transform:translateY(-2px)}
-.thumb.night::after{content:"";position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.5)}
-.below{display:flex;justify-content:space-between;align-items:center;gap:8px 12px;flex-wrap:wrap;margin-top:6px;color:var(--fg-3);font-size:12px}
-.below span:last-child{flex:1 1 360px;min-width:0;text-align:right;line-height:2}
-.below #roomNow{color:var(--fg);font-weight:500}
-.below b{color:var(--fg-2);font-weight:500}
-kbd{font:11px/1 var(--ui);color:var(--fg-2);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;padding:2px 5px;background:var(--bg-2)}
-
-/* rail */
-.rail{display:flex;flex-direction:column;gap:18px;min-width:0}
-.sec h2{margin:0 0 9px;font:600 11px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
-.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--bg-2)}
-.style{padding:9px 8px 8px;border-radius:9px;text-align:left;border:1px solid transparent;transition:background .15s,border-color .15s;min-width:0}
-.style b{display:block;font-weight:600;font-size:13px;line-height:1.15;overflow-wrap:anywhere}
-.style small{display:block;color:var(--fg-3);font-size:11px;line-height:1.3;margin-top:2px}
-.style[aria-pressed="true"]{background:var(--bg-3);border-color:var(--line-2)}
-.style[aria-pressed="true"] b{color:var(--accent)}
-.vars{display:grid;gap:8px}
-.var{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--bg-2);text-align:left;transition:border-color .15s,background .15s;min-width:0}
+/* picker bar: style | variation */
+.bar{flex:none;display:flex;align-items:center;gap:10px;padding-block:7px;padding-left:var(--gl);padding-right:var(--gr);border-bottom:1px solid var(--line);min-width:0}
+.styles{display:flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2);flex:none}
+.style{height:30px;padding:0 13px;border-radius:999px;font-weight:500;font-size:13px;color:var(--fg-2);white-space:nowrap}
+.style[aria-pressed="true"]{background:var(--bg-3);color:var(--accent);box-shadow:inset 0 0 0 1px var(--line-2)}
+.vars{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1 1 auto}
+.vars::-webkit-scrollbar{display:none}
+.var{flex:none;display:flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 8px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);white-space:nowrap;transition:border-color .15s,background .15s}
 .var:hover{border-color:var(--fg-3)}
 .var[aria-pressed="true"]{border-color:var(--accent);background:var(--bg-3)}
-.var img{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:7px}
-.var .n{display:block;font-family:var(--display);font-size:20px;line-height:1.05}
-.var .m{display:block;font-size:12px;color:var(--fg-3);margin-top:3px;line-height:1.3}
-.var .sw{display:flex;gap:3px;margin-top:6px}
-.var .sw i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.18)}
-.var[aria-pressed="true"] .n{color:var(--accent)}
-.about{padding:14px 16px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line)}
-.about .n{font-family:var(--display);font-size:30px;line-height:1;text-wrap:balance}
-.about .n i{color:var(--accent)}
-.about p{margin:8px 0 0;color:var(--fg-2);font-size:13.5px;line-height:1.55}
-.pal{display:grid;gap:6px;margin-top:12px}
-.pal div{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;font-size:12.5px}
-.pal i{width:22px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,.14)}
-.pal small{color:var(--fg-3);font-size:11px;text-align:right}
-.pal span{color:var(--fg)}
+.var .sw{display:flex}
+.var .sw i{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.4);margin-left:-4px}
+.var .sw i:first-child{margin-left:0}
+.var b{font-weight:600;font-size:13px}
+.var[aria-pressed="true"] b{color:var(--accent)}
+.var small{color:var(--fg-3);font-size:12px}
+.var small::before{content:"· ";color:var(--line-2)}
+
+/* stage: fills the rest */
+.stage{flex:1 1 auto;min-height:0;position:relative;margin:10px var(--gr) 0 var(--gl);display:flex;align-items:center;justify-content:center}
+.frame{position:relative;height:100%;aspect-ratio:16/9;max-width:100%;background:#000;border-radius:10px;overflow:hidden}
+.frame.cover{position:absolute;inset:0;height:auto;aspect-ratio:auto}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .45s ease}
+.frame img.on{opacity:1}
+.frame.cover img{object-fit:cover}
+.frame.kb img.on{animation:kb 7s ease-out forwards}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.05)}}
+.frame.kb.alt img.on{animation-name:kb2}
+@keyframes kb2{from{transform:scale(1.05) translateX(-1%)}to{transform:scale(1) translateX(0)}}
+@media (prefers-reduced-motion:reduce){.frame img{transition:none}.frame.kb img.on,.frame.kb.alt img.on{animation:none}}
+.nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(14,12,10,.5);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background .15s,opacity .2s}
+.nav:hover{background:rgba(14,12,10,.85)}
+.nav.prev{left:12px}.nav.next{right:12px}
+.nav svg{width:20px;height:20px;stroke-width:2}
+.tools{position:absolute;right:12px;top:12px;display:flex;gap:6px}
+.tool{width:36px;height:36px;border-radius:50%;background:rgba(14,12,10,.5);color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px)}
+.tool:hover{background:rgba(14,12,10,.85)}
+.tool[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.counter{position:absolute;left:12px;top:12px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.85);background:rgba(14,12,10,.45);padding:4px 9px;border-radius:999px;backdrop-filter:blur(6px);font-variant-numeric:tabular-nums}
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.1)}
+.progress i{display:block;height:100%;width:0;background:var(--accent)}
+.frame.playing .progress i{animation:prog 5.5s linear forwards}
+@keyframes prog{from{width:0}to{width:100%}}
+.frame.quiet .nav,.frame.quiet .tools,.frame.quiet .counter{opacity:0;pointer-events:none}
+.frame.quiet:hover .nav,.frame.quiet:hover .tools,.frame.quiet:hover .counter{opacity:1;pointer-events:auto}
+
+/* filmstrip + status line */
+.strip{flex:none;display:flex;gap:6px;overflow-x:auto;padding-block:8px 2px;padding-left:var(--gl);padding-right:var(--gr);scrollbar-width:none;scroll-snap-type:x proximity}
+.strip::-webkit-scrollbar{display:none}
+.thumb{flex:0 0 auto;width:104px;scroll-snap-align:start;border-radius:6px;overflow:hidden;position:relative;border:2px solid transparent;transition:border-color .15s;background:var(--bg-2)}
+.thumb img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.thumb[aria-current="true"]{border-color:var(--accent)}
+.thumb.night::after{content:"";position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.5)}
+.status{flex:none;display:flex;justify-content:space-between;align-items:center;gap:8px 12px;height:30px;padding-left:var(--gl);padding-right:var(--gr);color:var(--fg-3);font-size:12px;white-space:nowrap;overflow:hidden;margin-bottom:max(2px,env(safe-area-inset-bottom,0px))}
+.status b{color:var(--fg);font-weight:500}
+.status .hint{overflow:hidden;text-overflow:ellipsis}
+kbd{font:11px/1 var(--ui);color:var(--fg-2);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;padding:1px 4px;background:var(--bg-2)}
+
+/* info drawer */
+.drawer{position:fixed;top:env(safe-area-inset-top,0px);right:0;bottom:0;width:min(420px,100%);z-index:30;background:var(--bg-2);border-left:1px solid var(--line);overflow:auto;padding-block:18px max(18px,env(safe-area-inset-bottom,0px));padding-left:18px;padding-right:max(18px,env(safe-area-inset-right,0px));box-shadow:-30px 0 60px rgba(0,0,0,.45)}
+.drawer .n{font-family:var(--display);font-size:34px;line-height:1;text-wrap:balance;padding-right:48px}
+.drawer .n i{color:var(--accent)}
+.drawer .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px}
+.drawer p{margin:10px 0 0;color:var(--fg-2);font-size:14px;line-height:1.55}
+.drawer h3{margin:22px 0 8px;font:600 11px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.pal{display:grid;gap:7px}
+.pal div{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;font-size:13px}
+.pal i{width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,.14)}
+.pal small{color:var(--fg-3);font-size:11px}
 .pal em{display:block;font-style:normal;color:var(--fg-3);font-size:11px}
-.railacts{display:flex;gap:8px;flex-wrap:wrap}
+.drawer .close{position:absolute;top:14px;right:max(14px,env(safe-area-inset-right,0px));width:36px;height:36px;border-radius:50%;background:var(--bg-3);display:grid;place-items:center}
+.drawer .fine{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--fg-3);font-size:12.5px;line-height:1.55}
+.drawer .fine p{color:var(--fg-3);font-size:12.5px;margin:0 0 8px}
+.drawer .fine b{color:var(--fg-2);font-weight:500}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 
 /* compare overlay */
-.cmp{position:fixed;inset:0;z-index:40;background:rgba(10,9,8,.96);overflow:auto;padding-block:max(16px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-bottom,0px));padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
-.cmp .head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1500px;margin:0 auto 14px}
-.cmp .head h2{margin:0;font-family:var(--display);font-weight:400;font-size:30px}
+.cmp{position:fixed;inset:0;z-index:40;background:rgba(10,9,8,.97);overflow:auto;padding-block:max(16px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-bottom,0px));padding-left:var(--gl);padding-right:var(--gr)}
+.cmp .head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;max-width:1600px;margin:0 auto 12px}
+.cmp .head h2{margin:0;font-family:var(--display);font-weight:400;font-size:28px}
 .cmp .head h2 i{color:var(--accent)}
 .seg{display:inline-flex;padding:3px;border:1px solid var(--line-2);border-radius:999px;background:var(--bg-2)}
 .seg button{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:500;color:var(--fg-2)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px;max-width:1500px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:12px;max-width:1600px;margin:0 auto}
 .cell{position:relative;border-radius:10px;overflow:hidden;text-align:left;border:2px solid transparent;transition:border-color .15s;background:#000}
 .cell img{width:100%;aspect-ratio:16/9;object-fit:cover}
-.cell .l{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff}
+.cell .l{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 11px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff}
 .cell .l b{font-family:var(--display);font-weight:400;font-size:22px;display:block;line-height:1.05}
 .cell .l span{font-size:12px;color:rgba(255,255,255,.75)}
 .cell[aria-current="true"]{border-color:var(--accent)}
 .cell:hover{border-color:var(--fg-3)}
-.cmp .rooms{display:flex;gap:6px;flex-wrap:wrap;max-width:1500px;margin:0 auto 14px}
+.cmp .rooms{display:flex;gap:6px;flex-wrap:wrap;max-width:1600px;margin:0 auto 12px}
 .chip{padding:6px 11px;border-radius:999px;border:1px solid var(--line-2);font-size:12.5px;color:var(--fg-2);background:var(--bg-2)}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 
 /* theater (fallback fullscreen) */
-body.theater .frame{position:fixed;inset:0;z-index:30;border-radius:0;aspect-ratio:auto;height:100%}
-body.theater .frame img{object-fit:contain}
-body.theater .tools{right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px))}
-.frame:fullscreen{aspect-ratio:auto;border-radius:0}
-.frame:fullscreen img{object-fit:contain}
+body.theater .stage{position:fixed;inset:0;margin:0;z-index:35}
+body.theater .frame{border-radius:0;position:absolute;inset:0;height:auto;aspect-ratio:auto}
+.frame:fullscreen{border-radius:0}
 
-/* foot */
-.foot{max-width:1500px;margin:0 auto;padding-block:6px 30px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);color:var(--fg-3);font-size:12.5px;line-height:1.6;display:grid;gap:6px}
-.foot p{margin:0;max-width:72ch}
-.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-@media (max-width:640px){
+@media (max-width:760px){
   .brand .sub{display:none}.btn .txt{display:none}.btn{padding:0 10px}
-  .nav{width:40px;height:40px}.nav.prev{left:8px}.nav.next{right:8px}
-  .styles{grid-template-columns:1fr 1fr 1fr}.style small{display:none}
-  .thumb{width:112px}
+  .bar{flex-wrap:wrap;gap:6px}.styles{width:100%;justify-content:stretch}.style{flex:1;text-align:center;padding:0 6px}
+  .var small{display:none}.var .sw{display:none}.vars{overflow:visible;gap:5px}.var{height:32px;flex:1 1 0;justify-content:center;padding:0 4px;min-width:0}.var b{font-size:12px;overflow:hidden;text-overflow:ellipsis}
+  .stage{margin:8px var(--gr) 0 var(--gl)}
+  .nav{width:38px;height:38px}.nav.prev{left:8px}.nav.next{right:8px}
+  .thumb{width:84px}
+  .status .hint{display:none}
 }
+@media (orientation:portrait) and (max-width:760px){ .frame{position:absolute;inset:0;height:auto;aspect-ratio:auto} .frame img{object-fit:cover} .frame.fit img{object-fit:contain} }
+/* short screens (laptops, landscape phones): thinner chrome so the photograph keeps the majority of the screen */
+@media (max-height:800px){
+  .top{height:46px}.brand .name{font-size:22px}.btn{height:32px}
+  .bar{padding-block:5px}.style{height:28px}.var{height:32px}
+  .stage{margin-top:8px}.strip{padding-block:6px 0}.thumb{width:72px}.status{height:24px;font-size:11px}
+}
+@media (max-height:480px){ .strip,.status{display:none}.stage{margin-bottom:max(6px,env(safe-area-inset-bottom,0px))} .frame{position:absolute;inset:0;height:auto;aspect-ratio:auto} .frame img{object-fit:cover} .frame.fit img{object-fit:contain} }
 </style>
 
-<header class="top">
-  <div class="brand"><span class="name">Golf <i>Photo Tour</i></span><span class="sub" id="crumb">Twelve schemes · ground floor · drawing A12-001</span></div>
-  <div class="acts">
-    <button class="btn" id="cmpBtn" title="Compare this room across the variations (C)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg><span class="txt">Compare</span></button>
-    <button class="btn primary" id="tourBtn" title="Play the full tour through all twelve schemes"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class="txt">Full tour</span></button>
+<div class="shell">
+  <header class="top">
+    <div class="brand"><span class="name">Golf <i>Photo Tour</i></span><span class="sub" id="crumb"></span></div>
+    <div class="acts">
+      <button class="btn" id="infoBtn" aria-pressed="false" title="About this scheme (I)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span class="txt">Scheme</span></button>
+      <button class="btn" id="cmpBtn" title="Compare this room across schemes (C)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg><span class="txt">Compare</span></button>
+      <button class="btn primary" id="tourBtn" title="Play the full tour through all twelve schemes"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class="txt">Full tour</span></button>
+    </div>
+  </header>
+  <div class="bar">
+    <div class="styles" id="styles" role="group" aria-label="Style"></div>
+    <div class="vars" id="vars" role="group" aria-label="Variation"></div>
   </div>
-</header>
-
-<main class="app">
   <section class="stage" aria-label="Photograph">
     <div class="frame" id="frame">
       <img id="imgA" alt=""><img id="imgB" alt="">
-      <div class="counter" id="counter">1 / 11</div>
+      <div class="counter" id="counter"></div>
       <div class="tools">
-        <button class="tool" id="playBtn" aria-pressed="false" title="Play this scheme's tour (Space)" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>
+        <button class="tool" id="playBtn" aria-pressed="false" title="Play this scheme (Space)" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></button>
+        <button class="tool" id="fitBtn" title="Fit the whole photograph / fill the screen" aria-label="Fit or fill"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 12h8"/></svg></button>
         <button class="tool" id="dlBtn" title="Save this photograph" aria-label="Save photograph"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg></button>
         <button class="tool" id="fsBtn" title="Full screen (F)" aria-label="Full screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
       </div>
       <button class="nav prev" id="prevBtn" aria-label="Previous photograph"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
       <button class="nav next" id="nextBtn" aria-label="Next photograph"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
-      <div class="progress"><i id="prog"></i></div>
+      <div class="progress"><i></i></div>
     </div>
-    <div class="strip" id="strip" role="listbox" aria-label="Photographs of this scheme"></div>
-    <div class="below"><span><b id="roomNow"></b> <span id="roomCount"></span></span><span><kbd>←</kbd> <kbd>→</kbd> photos &nbsp; <kbd>1</kbd>–<kbd>4</kbd> variation &nbsp; <kbd>T</kbd> <kbd>M</kbd> <kbd>H</kbd> style &nbsp; <kbd>Space</kbd> play &nbsp; <kbd>C</kbd> compare</span></div>
   </section>
+  <div class="strip" id="strip" role="listbox" aria-label="Photographs of this scheme"></div>
+  <div class="status"><span><b id="roomNow"></b> <span id="roomCount"></span></span><span class="hint"><kbd>←</kbd> <kbd>→</kbd> photos &nbsp; <kbd>1</kbd>–<kbd>4</kbd> variation &nbsp; <kbd>T</kbd> <kbd>M</kbd> <kbd>H</kbd> style &nbsp; <kbd>Space</kbd> play &nbsp; <kbd>C</kbd> compare &nbsp; <kbd>I</kbd> scheme</span></div>
+</div>
 
-  <aside class="rail" aria-label="Choose a scheme">
-    <div class="sec"><h2>Style</h2><div class="styles" id="styles" role="group"></div></div>
-    <div class="sec"><h2>Variation</h2><div class="vars" id="vars" role="group"></div></div>
-    <div class="about" id="about"></div>
-    <div class="railacts"><button class="btn" id="vidBtn"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg><span>Save this scheme's tour video</span></button></div>
-  </aside>
-</main>
+<aside class="drawer" id="drawer" hidden aria-label="About this scheme">
+  <button class="close" id="drawerClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div id="about"></div>
+  <h3>Palette</h3><div class="pal" id="pal"></div>
+  <h3>Files</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="vidBtn"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0 4-4m-4 4-4-4M4 17v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2"/></svg><span>Save this scheme's tour video</span></button></div>
+  <div class="fine">
+    <p><b>What these pictures are.</b> The renovation does not exist yet, so none of this is a photograph of a real room. Every image comes from one 3D model of the proposed ground floor (drawing A12-001): the light is simulated physically, then an image model turns the simulation into a camera-like photograph while keeping layout, furniture, colours and camera angle. Fine details such as fabric patterns, decor and the view through the windows are the model's plausible interpretation, not a specification.</p>
+    <p>Twelve schemes: three styles (Traditional, Mediterranean, Modern-Mediterranean hybrid) in four variations each (Vintage, Classic, Transitional, Modern). Room sizes, openings and furniture positions follow the drawing; ceiling height (3.0 m), door and window heights, lighting and all furnishing are assumptions.</p>
+  </div>
+</aside>
 
 <div class="cmp" id="cmp" hidden role="dialog" aria-label="Compare">
-  <div class="head"><h2 id="cmpTitle">Compare <i>variations</i></h2>
+  <div class="head"><h2 id="cmpTitle"></h2>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <div class="seg" role="group" aria-label="Compare by"><button id="byVar" aria-pressed="true">4 variations of this style</button><button id="byStyle" aria-pressed="false">3 styles of this variation</button></div>
       <button class="btn" id="cmpClose">Close</button>
@@ -192,110 +207,114 @@ body.theater .tools{right:max(14px,env(safe-area-inset-right,0px));top:max(14px,
   <div class="grid" id="cmpGrid"></div>
 </div>
 
-<footer class="foot">
-  <p><b style="color:var(--fg-2);font-weight:500">What these pictures are.</b> The renovation does not exist yet, so none of this is a photograph of a real room. Every image comes from one 3D model of the proposed ground floor (drawing A12-001): the light is simulated physically, then an image model turns the simulation into a camera-like photograph while keeping layout, furniture, colours and camera angle. Fine details such as fabric patterns, decor and the view through the windows are the model's plausible interpretation, not a specification.</p>
-  <p>Twelve schemes: three styles (Traditional, Mediterranean, Modern-Mediterranean hybrid) in four variations each (Vintage, Classic, Transitional, Modern). Room sizes, openings and furniture positions follow the drawing; ceiling height (3.0 m), door and window heights, lighting and all furnishing are assumptions.</p>
-</footer>
-
 <script>
 const DATA = {"S":[{"id":"T01","fam":"T","stage":1,"name":"Vintage Manor","blurb":"A richly layered, deliberately timeworn interior built around walnut, oxblood leather and faded botanical textiles. The character comes from accumulated-looking furniture, restrained patina and a hierarchy of dark enclosure against luminous outdoor paving, rather than a literal historic reconstruction.","palette":[["Warm chalk","#E8DFCD","Primary plaster and ceiling ground"],["Tobacco walnut","#604332","Furniture and selected joinery"],["Oxblood","#6E3036","Leather and small textile emphasis"],["Dried olive","#77765A","Sofa and botanical textile field"],["Antique brass","#A58B55","Small metal accents"],["Faded parchment","#CABA9A","Rugs and window textiles"]],"wall":"#E8DFCD","floor":"#6a4a36"},{"id":"T02","fam":"T","stage":2,"name":"Tailored Classical","blurb":"A precise, composed scheme using warm ivory, putty, pale stone and dark bronze. Classical character is expressed through carefully aligned wall frames, controlled symmetry within individual furniture groups and refined edges, not lavish ornament.","palette":[["Warm ivory","#EEE9DC","Wall frames and ceilings"],["Tailored putty","#B7AD9C","Upholstery and panel fields"],["Pale limestone","#D5C8B0","Floor and counter stone"],["Dark bronze","#594B3C","Metal outlines and fittings"],["Ink blue","#344454","Selected chairs and textiles"],["Soft flax","#D9CEB8","Window and rug textures"]],"wall":"#EEE9DC","floor":"#D5C8B0"},{"id":"T03","fam":"T","stage":3,"name":"Transitional Heritage","blurb":"A welcoming craft-led interior in honey oak, warm greige, muted teal and burnished clay. Heritage appears in reeded glass, framed cabinet doors and small-scale woven patterns; contemporary generosity comes through low, comfortable seating and uncluttered plaster walls.","palette":[["Warm greige","#D8D0C1","Main wall ground"],["Honey oak","#B78C59","Floor and furniture warmth"],["Muted teal","#587B79","Upholstery emphasis"],["Burnished clay","#AF755E","Ceramic and textile accents"],["Soft nickel","#A6A59E","Hardware and light details"],["Milk white","#F0EBDF","Ceilings and light joinery"]],"wall":"#D8D0C1","floor":"#B78C59"},{"id":"T04","fam":"T","stage":4,"name":"Modern Traditional","blurb":"A bolder, edited traditional scheme built around bone-white walls, espresso joinery and moss-green upholstery. Broad panel fields replace fine classical frames; contemporary art and sculptural but comfortable furniture replace vintage accumulation.","palette":[["Bone white","#E9E4D8","Broad wall panels and ceilings"],["Espresso","#3E3029","Joinery and table"],["Moss green","#66705A","Principal upholstery"],["Charcoal","#383A37","Fine metal outlines"],["Muted ochre","#B18C48","Art and small accents"],["Oat","#C5B8A0","Rugs and pale seating"]],"wall":"#E9E4D8","floor":"#4a3a31"},{"id":"M01","fam":"M","stage":1,"name":"Rustic Mediterranean","blurb":"An earthy, tactile scheme centred on terracotta, chalk plaster, chestnut-toned timber and woven fibre. Irregularity belongs in finish variation and handmade-looking objects, not in unsafe floors or false structural stories.","palette":[["Chalk plaster","#E8E0CD","Walls and ceilings"],["Terracotta earth","#B56F4C","Floor and ceramics"],["Chestnut","#785238","Timber furniture and joinery"],["Olive leaf","#777C58","Upholstery and planting accents"],["Straw","#C6AD79","Woven shades and rugs"],["Soot iron","#43413A","Small metal details"]],"wall":"#E8E0CD","floor":"#B56F4C"},{"id":"M02","fam":"M","stage":2,"name":"Classic Mediterranean Villa","blurb":"A luminous villa interpretation in cream stone, celadon, warm ivory and small cobalt ceramic accents. Fine plaster borders and gently curved furniture provide elegance without inventing arches, vaults or a grander plan.","palette":[["Villa ivory","#EFE6D4","Walls and ceilings"],["Cream stone","#D5C19E","Floor and counter"],["Celadon","#A7B7A0","Principal upholstery"],["Cobalt ceramic","#345C92","Small decorative accents"],["Pale oak","#BD9B6D","Furniture and cabinet interiors"],["Aged gold","#AD9561","Restricted metal details"]],"wall":"#EFE6D4","floor":"#D5C19E"},{"id":"M03","fam":"M","stage":3,"name":"Contemporary Mediterranean","blurb":"A contemporary, sun-washed scheme using sand mineral floors, peach-tinted plaster, pale oak and rust accents. Broad continuous surfaces replace traditional trim; curved loose furniture provides softness without altering walls.","palette":[["Sand mineral","#CDBB9F","Continuous indoor floor tone"],["Pale peach","#E4C9B4","Main wall finish"],["Light oak","#C4A77F","Furniture and cabinet warmth"],["Rust","#A55E44","Textile and ceramic accents"],["Soft cream","#EFE6D7","Ceilings and upholstery"],["Blackened metal","#45413C","Restricted lighting details"]],"wall":"#E4C9B4","floor":"#CDBB9F"},{"id":"M04","fam":"M","stage":4,"name":"Minimal Mediterranean","blurb":"The most restrained Mediterranean option: alabaster, pale sand, oat and bleached timber with a little warm grey. Decoration is reduced to a few tactile objects; light, shadow and careful junctions carry the atmosphere.","palette":[["Alabaster","#EEE9DD","Walls and ceilings"],["Pale sand","#D7CCB7","Floor and counter surfaces"],["Bleached oak","#CDBD9F","Furniture and joinery"],["Oat linen","#C7BEAA","Upholstery and curtains"],["Warm grey","#969286","Small metal and ceramic accents"],["Soft chalk","#F5F0E5","Textile highlights"]],"wall":"#EEE9DD","floor":"#D7CCB7"},{"id":"H01","fam":"H","stage":1,"name":"Collected Mediterranean Heritage","blurb":"An intentionally collected scheme combining tobacco timber, warm plaster, indigo woven patterns and small aubergine accents. Unlike Vintage Manor, the envelope stays light and mineral; unlike Rustic Mediterranean, furnishings are more varied and personally assembled in appearance.","palette":[["Warm shell","#E5D8C3","Mineral wall and ceiling field"],["Pale limestone","#D3C4A9","Floor and stone accents"],["Tobacco timber","#78523B","Mixed furniture and cabinetry"],["Woven indigo","#435B76","Patterned textiles and chairs"],["Muted aubergine","#765461","Small upholstery accents"],["Aged copper","#A57453","Limited metal and ceramic warmth"]],"wall":"#E5D8C3","floor":"#D3C4A9"},{"id":"H02","fam":"H","stage":2,"name":"Tailored Coastal Classic","blurb":"A tailored, breathable scheme using oyster white, driftwood oak, sea-glass green and controlled navy piping. Coastal character is expressed through light, weave and colour rather than shells, nautical motifs or an invented sea view.","palette":[["Oyster white","#E9E7DD","Walls and ceilings"],["Driftwood oak","#B7AB91","Floor and furniture"],["Sea glass","#A8C0B8","Upholstery and selected cabinet fields"],["Quiet navy","#34495E","Piping and small graphic accents"],["Brushed pewter","#929B99","Metal details"],["Sailcloth","#D6D0BF","Curtains and woven textures"]],"wall":"#E9E7DD","floor":"#B7AB91"},{"id":"H03","fam":"H","stage":3,"name":"Sculptural Warm Modern","blurb":"A bold warm-modern option in clay-beige plaster, amber timber, cocoa upholstery and chalk highlights. Sculptural character comes from loose furniture, textured objects and a rounded-edge counter, not from reshaping the plan.","palette":[["Clay beige","#CDB6A0","Main wall ground"],["Amber timber","#A87345","Table and cabinetry"],["Cocoa","#705448","Deep upholstery"],["Chalk cream","#EDE3D2","Ceilings and lighter seating"],["Warm aggregate","#BFAF98","Floor and counter tone"],["Muted copper","#AA7860","Small accents"]],"wall":"#CDB6A0","floor":"#BFAF98"},{"id":"H04","fam":"H","stage":4,"name":"Mediterranean Modernism","blurb":"A graphic, planar scheme combining off-white mineral walls, ochre accents, reddish timber and restrained dark green. Modernist character comes from slender furniture frames, clear horizontal cabinetry and disciplined colour blocks, not from altering structure or inventing glazing.","palette":[["Mineral off-white","#E8E3D4","Main walls and ceilings"],["Warm grey aggregate","#B9B1A0","Floor and counter tone"],["Reddish timber","#965C40","Table and horizontal joinery"],["Ochre","#BE943C","Textile and art colour blocks"],["Dark green","#405C4D","Selected seating and cabinet fields"],["Black brown","#37352E","Slender furniture and light frames"]],"wall":"#E8E3D4","floor":"#B9B1A0"}],"P":{"H01":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"H02":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"H03":["terrace-day.jpg","facade-day.jpg","entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"H04":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"M01":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"M02":["terrace-day.jpg","facade-day.jpg","entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"M03":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"M04":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"T01":["terrace-day.jpg","facade-day.jpg","entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"T02":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"T03":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"],"T04":["entrance-day.jpg","hall-day.jpg","living-day.jpg","living2-day.jpg","bar-day.jpg","dining-day.jpg","dining2-day.jpg","living-night.jpg","dining-night.jpg"]}};
-const FAM = {T:{name:'Traditional',line:'Panelled, layered, warm'},M:{name:'Mediterranean',line:'Lime plaster, terracotta, timber'},H:{name:'Hybrid',line:'Mediterranean materials, modern lines'}};
+const FAM = {T:'Traditional',M:'Mediterranean',H:'Hybrid'};
 const FAMLONG = {T:'Traditional',M:'Mediterranean',H:'Modern-Mediterranean hybrid'};
 const STAGE = ['Vintage','Classic','Transitional','Modern'];
-const STAGELINE = ['timeworn and collected','formal and balanced','pared back, softened','clean and current'];
 const ROOM = {living:'Living room',living2:'Living room, towards the terrace',dining:'Dining room',dining2:'Dining room, towards the bar',hall:'Hall and stair',bar:'Bar',entrance:'Entrance',terrace:'Terrace, main entrance',facade:'Garden front'};
 const ORDER = ['T01','T02','T03','T04','M01','M02','M03','M04','H01','H02','H03','H04'];
 const S = Object.fromEntries(DATA.S.map(s=>[s.id,s]));
 const photos = id => (DATA.P[id]||[]).map(f=>{ const [room,tod]=f.slice(0,-4).split(/-(?=day$|night$)/); return {f,room,tod,src:`photos/${id}/${f}`,label:ROOM[room]||room}; });
 const $ = s => document.querySelector(s);
-const state = { fam:'T', stage:1, i:0, playing:false, full:false, cmpBy:'var', cmpRoom:'living-day' };
+const state = { fam:'T', stage:1, i:0, playing:false, full:false, cmpBy:'var', cmpRoom:'living-day.jpg' };
 const id = () => state.fam+'0'+state.stage;
-let timer = null, cur = 0, reqId = 0; const imgs=[$('#imgA'),$('#imgB')]; const frame=$('#frame'); const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let timer=null, cur=0, reqId=0, quietTimer=null; const imgs=[$('#imgA'),$('#imgB')]; const frame=$('#frame'); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function setScheme(fam, stage, keepRoom=true){
   const prev = photos(id())[state.i]; state.fam=fam; state.stage=stage;
-  const list = photos(id()); let i = 0;
-  if(keepRoom && prev){ const j = list.findIndex(p=>p.f===prev.f); if(j>=0) i=j; }
+  const list = photos(id()); let i=0;
+  if(keepRoom && prev){ const j=list.findIndex(p=>p.f===prev.f); if(j>=0) i=j; }
   state.i=i; try{ if(location.hash!=='#'+id()) location.replace('#'+id()); }catch(e){}
-  renderRail(); show(true);
+  renderPickers(); renderStrip(); renderDrawer(); show();
 }
-function show(reset){
-  const list = photos(id()); if(!list.length) return; state.i=(state.i+list.length)%list.length; const p=list[state.i]; const s=S[id()];
-  const nxt = imgs[1-cur]; const req=++reqId; nxt.src=p.src; nxt.alt=`${p.label}, ${p.tod==='night'?'at night':'daylight'}, scheme ${s.id} ${s.name}`;
+function show(){
+  const list=photos(id()); if(!list.length) return; state.i=(state.i+list.length)%list.length; const p=list[state.i]; const s=S[id()];
+  const nxt=imgs[1-cur]; const req=++reqId; nxt.src=p.src; nxt.alt=`${p.label}, ${p.tod==='night'?'at night':'daylight'}, scheme ${s.id} ${s.name}`;
   const swap=()=>{ if(req!==reqId) return; nxt.classList.add('on'); imgs[cur].classList.remove('on'); cur=1-cur; frame.classList.toggle('alt', state.i%2===1); };
-  (nxt.decode ? nxt.decode().then(swap, swap) : Promise.resolve().then(swap));
+  (nxt.decode ? nxt.decode().then(swap,swap) : Promise.resolve().then(swap));
   $('#roomNow').textContent=`${p.label} · ${p.tod==='night'?'evening, lamps on':'daylight'}`;
   $('#counter').textContent=`${state.i+1} / ${list.length}`;
   $('#crumb').textContent=`${s.id} ${s.name} · ${FAMLONG[s.fam]} · ${STAGE[s.stage-1]}`;
   document.title=`${s.id} ${s.name} · Golf Photo Tour`;
-  [...$('#strip').children].forEach((t,k)=>{ t.setAttribute('aria-current', k===state.i?'true':'false'); if(k===state.i) t.scrollIntoView({block:'nearest',inline:'nearest',behavior: reduce?'auto':'smooth'}); });
+  [...$('#strip').children].forEach((t,k)=>{ t.setAttribute('aria-current', k===state.i?'true':'false'); if(k===state.i) t.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduce?'auto':'smooth'}); });
   const pre=list[(state.i+1)%list.length]; if(pre){ const im=new Image(); im.src=pre.src; }
-  if(state.playing){ restartProgress(); }
+  if(state.playing) restartProgress();
 }
-function renderRail(){
-  const s=S[id()];
-  $('#styles').innerHTML=Object.entries(FAM).map(([k,v])=>`<button class="style" data-fam="${k}" aria-pressed="${k===state.fam}"><b>${v.name}</b><small>${v.line}</small></button>`).join('');
-  $('#vars').innerHTML=[1,2,3,4].map(n=>{ const v=S[state.fam+'0'+n]; const cover=`photos/${v.id}/living-day.jpg`; return `<button class="var" data-stage="${n}" aria-pressed="${n===state.stage}"><img src="${cover}" alt="" loading="lazy"><span><span class="n">${v.name}</span><span class="m">${STAGE[n-1]} · ${STAGELINE[n-1]}</span><span class="sw">${v.palette.map(p=>`<i style="background:${p[1]}" title="${p[0]}"></i>`).join('')}</span></span></button>`; }).join('');
-  $('#about').innerHTML=`<div class="n">${s.id} <i>${s.name}</i></div><p>${s.blurb}</p><div class="pal">${s.palette.map(p=>`<div><i style="background:${p[1]}"></i><span>${p[0]}<em>${p[2]}</em></span><small>${p[1]}</small></div>`).join('')}</div>`;
+function renderPickers(){
+  $('#styles').innerHTML=Object.entries(FAM).map(([k,v])=>`<button class="style" data-fam="${k}" aria-pressed="${k===state.fam}">${v}</button>`).join('');
+  $('#vars').innerHTML=[1,2,3,4].map(n=>{ const v=S[state.fam+'0'+n]; return `<button class="var" data-stage="${n}" aria-pressed="${n===state.stage}" title="${v.id} ${v.name}"><span class="sw">${v.palette.slice(0,4).map(p=>`<i style="background:${p[1]}"></i>`).join('')}</span><b>${STAGE[n-1]}</b><small>${v.name}</small></button>`; }).join('');
+  const cur=$('#vars [aria-pressed="true"]'); if(cur) cur.scrollIntoView({block:'nearest',inline:'nearest'});
+}
+function renderStrip(){
   const list=photos(id()); const night=list.filter(p=>p.tod==='night').length;
-  $('#strip').innerHTML=list.map((p,k)=>`<button class="thumb ${p.tod}" role="option" data-i="${k}" aria-current="${k===state.i}"><img src="${p.src}" alt="" loading="lazy"><span>${p.label}${p.tod==='night'?' · night':''}</span></button>`).join('');
+  $('#strip').innerHTML=list.map((p,k)=>`<button class="thumb ${p.tod}" role="option" data-i="${k}" aria-current="${k===state.i}" title="${p.label}${p.tod==='night'?' · night':''}"><img src="${p.src}" alt="" loading="lazy"></button>`).join('');
   $('#roomCount').textContent=`· ${list.length} photographs, ${night} at night`;
 }
+function renderDrawer(){
+  const s=S[id()];
+  $('#about').innerHTML=`<div class="k">${s.id} · ${FAMLONG[s.fam]} · ${STAGE[s.stage-1]}</div><div class="n">${s.name.split(' ').slice(0,-1).join(' ')} <i>${s.name.split(' ').slice(-1)}</i></div><p>${s.blurb}</p>`;
+  $('#pal').innerHTML=s.palette.map(p=>`<div><i style="background:${p[1]}"></i><span>${p[0]}<em>${p[2]}</em></span><small>${p[1]}</small></div>`).join('');
+}
 function step(d){ state.i+=d; show(); }
-function nextInTour(){ const list=photos(id()); if(state.i<list.length-1){ state.i++; show(); return; } if(state.full){ const k=(ORDER.indexOf(id())+1)%ORDER.length; const nid=ORDER[k]; state.i=-1; setScheme(nid[0], +nid.slice(1), false); } else { state.i=0; show(); } }
+function nextInTour(){ const list=photos(id()); if(state.i<list.length-1){ state.i++; show(); return; } if(state.full){ const k=(ORDER.indexOf(id())+1)%ORDER.length; const nid=ORDER[k]; setScheme(nid[0], +nid.slice(1), false); } else { state.i=0; show(); } }
 function restartProgress(){ frame.classList.remove('playing'); void frame.offsetWidth; frame.classList.add('playing'); clearTimeout(timer); timer=setTimeout(nextInTour, 5500); }
-function setPlaying(on, full=false){ state.playing=on; state.full=on&&full; frame.classList.toggle('kb', on&&!reduce); frame.classList.toggle('playing', on); $('#playBtn').setAttribute('aria-pressed', String(on&&!full)); $('#playBtn').title = on?'Pause (Space)':"Play this scheme's tour (Space)";
-  $('#tourBtn').innerHTML = (on&&full) ? '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg><span class="txt">Pause tour</span>' : '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class="txt">Full tour</span>';
-  $('#playBtn').innerHTML = (on&&!full) ? '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>';
+function setPlaying(on, full=false){ state.playing=on; state.full=on&&full; frame.classList.toggle('kb', on&&!reduce); frame.classList.toggle('playing', on); frame.classList.toggle('quiet', on);
+  $('#playBtn').setAttribute('aria-pressed', String(on&&!full)); $('#playBtn').title=on?'Pause (Space)':'Play this scheme (Space)';
+  $('#tourBtn').innerHTML=(on&&full)?'<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg><span class="txt">Pause tour</span>':'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg><span class="txt">Full tour</span>';
+  $('#playBtn').innerHTML=(on&&!full)?'<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>':'<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg>';
   clearTimeout(timer); if(on) restartProgress(); }
-function toast(msg){ let t=$('.toast'); if(!t){ t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); } t.textContent=msg; t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>{ t.hidden=true; }, 2600); }
+function toast(msg){ let t=$('.toast'); if(!t){ t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); } t.textContent=msg; t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>{ t.hidden=true; },2600); }
+function openDrawer(){ $('#drawer').hidden=false; $('#infoBtn').setAttribute('aria-pressed','true'); $('#drawerClose').focus(); }
+function closeDrawer(){ $('#drawer').hidden=true; $('#infoBtn').setAttribute('aria-pressed','false'); }
 
 // events
 $('#styles').addEventListener('click', e=>{ const b=e.target.closest('.style'); if(b) setScheme(b.dataset.fam, state.stage); });
 $('#vars').addEventListener('click', e=>{ const b=e.target.closest('.var'); if(b) setScheme(state.fam, +b.dataset.stage); });
-$('#strip').addEventListener('click', e=>{ const b=e.target.closest('.thumb'); if(b){ state.i=+b.dataset.i; show(); if(state.playing) restartProgress(); } });
-$('#prevBtn').onclick=()=>{ step(-1); if(state.playing) restartProgress(); };
-$('#nextBtn').onclick=()=>{ step(1); if(state.playing) restartProgress(); };
+$('#strip').addEventListener('click', e=>{ const b=e.target.closest('.thumb'); if(b){ state.i=+b.dataset.i; show(); } });
+$('#prevBtn').onclick=()=>step(-1); $('#nextBtn').onclick=()=>step(1);
 $('#playBtn').onclick=()=>setPlaying(!(state.playing&&!state.full), false);
-$('#tourBtn').onclick=()=>{ if(state.playing&&state.full) setPlaying(false); else { setPlaying(true,true); } };
+$('#tourBtn').onclick=()=>{ if(state.playing&&state.full) setPlaying(false); else setPlaying(true,true); };
+$('#fitBtn').onclick=()=>{ const coverDefault=matchMedia('(orientation: portrait) and (max-width: 760px), (max-height: 480px)').matches; if(coverDefault) frame.classList.toggle('fit'); else frame.classList.toggle('cover'); };
+$('#infoBtn').onclick=()=>{ $('#drawer').hidden?openDrawer():closeDrawer(); }; $('#drawerClose').onclick=closeDrawer;
 $('#fsBtn').onclick=async()=>{ try{ if(document.fullscreenElement){ await document.exitFullscreen(); } else if(frame.requestFullscreen){ await frame.requestFullscreen(); } else { document.body.classList.toggle('theater'); } }catch(e){ document.body.classList.toggle('theater'); } };
 document.addEventListener('keydown', e=>{ if(e.target.matches('input,textarea')) return; const k=e.key.toLowerCase();
-  if(e.key==='ArrowRight'){ step(1); if(state.playing) restartProgress(); } else if(e.key==='ArrowLeft'){ step(-1); if(state.playing) restartProgress(); }
-  else if(e.key===' '){ e.preventDefault(); setPlaying(!state.playing, state.full); } else if(k==='f'){ $('#fsBtn').click(); } else if(k==='c'){ $('#cmp').hidden?openCompare():closeCompare(); }
-  else if(k==='escape'){ if(!$('#cmp').hidden) closeCompare(); else if(document.body.classList.contains('theater')) document.body.classList.remove('theater'); }
-  else if('1234'.includes(e.key)&&e.key){ setScheme(state.fam, +e.key); } else if(k==='t'||k==='m'||k==='h'){ setScheme(k.toUpperCase(), state.stage); } });
-// swipe
+  if(e.key==='ArrowRight') step(1); else if(e.key==='ArrowLeft') step(-1);
+  else if(e.key===' '){ e.preventDefault(); setPlaying(!state.playing, state.full); } else if(k==='f') $('#fsBtn').click(); else if(k==='c'){ $('#cmp').hidden?openCompare():closeCompare(); } else if(k==='i') $('#infoBtn').click();
+  else if(k==='escape'){ if(!$('#cmp').hidden) closeCompare(); else if(!$('#drawer').hidden) closeDrawer(); else document.body.classList.remove('theater'); }
+  else if(e.key.length===1&&'1234'.includes(e.key)) setScheme(state.fam, +e.key); else if(k==='t'||k==='m'||k==='h') setScheme(k.toUpperCase(), state.stage); });
 let sx=null, sy=null; frame.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; sy=e.touches[0].clientY; }, {passive:true});
-frame.addEventListener('touchend', e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5){ step(dx<0?1:-1); if(state.playing) restartProgress(); } sx=sy=null; }, {passive:true});
-document.addEventListener('visibilitychange', ()=>{ if(document.hidden&&state.playing){ clearTimeout(timer); } else if(state.playing){ restartProgress(); } });
+frame.addEventListener('touchend', e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy; if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5) step(dx<0?1:-1); sx=sy=null; }, {passive:true});
+frame.addEventListener('pointermove', ()=>{ if(!state.playing) return; frame.classList.remove('quiet'); clearTimeout(quietTimer); quietTimer=setTimeout(()=>{ if(state.playing) frame.classList.add('quiet'); }, 1800); });
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden&&state.playing) clearTimeout(timer); else if(state.playing) restartProgress(); });
 
 // compare
 function openCompare(){ const p=photos(id())[state.i]; state.cmpRoom=p?p.f:'living-day.jpg'; $('#cmp').hidden=false; renderCompare(); $('#cmpClose').focus(); }
 function closeCompare(){ $('#cmp').hidden=true; $('#cmpBtn').focus(); }
 function renderCompare(){ const byVar=state.cmpBy==='var'; $('#byVar').setAttribute('aria-pressed',String(byVar)); $('#byStyle').setAttribute('aria-pressed',String(!byVar));
-  const ids = byVar ? [1,2,3,4].map(n=>state.fam+'0'+n) : ['T','M','H'].map(f=>f+'0'+state.stage);
-  const rooms = photos(ids[0]).filter(p=>ids.every(x=>DATA.P[x].includes(p.f)));
+  const ids=byVar?[1,2,3,4].map(n=>state.fam+'0'+n):['T','M','H'].map(f=>f+'0'+state.stage);
+  const rooms=photos(ids[0]).filter(p=>ids.every(x=>DATA.P[x].includes(p.f)));
   if(!rooms.some(r=>r.f===state.cmpRoom)) state.cmpRoom=rooms[0]?rooms[0].f:'living-day.jpg';
-  $('#cmpTitle').innerHTML = byVar ? `${FAMLONG[state.fam]}: <i>four variations</i>` : `${STAGE[state.stage-1]}: <i>three styles</i>`;
-  $('#cmpRooms').innerHTML = rooms.map(r=>`<button class="chip" data-f="${r.f}" aria-pressed="${r.f===state.cmpRoom}">${r.label}${r.tod==='night'?' · night':''}</button>`).join('');
-  $('#cmpGrid').innerHTML = ids.map(x=>{ const s=S[x]; return `<button class="cell" data-id="${x}" aria-current="${x===id()}"><img src="photos/${x}/${state.cmpRoom}" alt="${ROOM[state.cmpRoom.split('-')[0]]||''}, ${s.id} ${s.name}" loading="lazy"><span class="l"><b>${s.id} ${s.name}</b><span>${byVar?STAGE[s.stage-1]:FAMLONG[s.fam]} · ${s.palette.slice(0,3).map(p=>p[0]).join(', ')}</span></span></button>`; }).join(''); }
+  $('#cmpTitle').innerHTML=byVar?`${FAMLONG[state.fam]}: <i>four variations</i>`:`${STAGE[state.stage-1]}: <i>three styles</i>`;
+  $('#cmpRooms').innerHTML=rooms.map(r=>`<button class="chip" data-f="${r.f}" aria-pressed="${r.f===state.cmpRoom}">${r.label}${r.tod==='night'?' · night':''}</button>`).join('');
+  $('#cmpGrid').innerHTML=ids.map(x=>{ const s=S[x]; return `<button class="cell" data-id="${x}" aria-current="${x===id()}"><img src="photos/${x}/${state.cmpRoom}" alt="${ROOM[state.cmpRoom.split('-')[0]]||''}, ${s.id} ${s.name}" loading="lazy"><span class="l"><b>${s.id} ${s.name}</b><span>${byVar?STAGE[s.stage-1]:FAMLONG[s.fam]} · ${s.palette.slice(0,3).map(p=>p[0]).join(', ')}</span></span></button>`; }).join(''); }
 $('#cmpBtn').onclick=openCompare; $('#cmpClose').onclick=closeCompare;
 $('#byVar').onclick=()=>{ state.cmpBy='var'; renderCompare(); }; $('#byStyle').onclick=()=>{ state.cmpBy='style'; renderCompare(); };
 $('#cmpRooms').addEventListener('click', e=>{ const b=e.target.closest('.chip'); if(b){ state.cmpRoom=b.dataset.f; renderCompare(); } });
 $('#cmpGrid').addEventListener('click', e=>{ const b=e.target.closest('.cell'); if(!b) return; const x=b.dataset.id; const list=photos(x); const j=list.findIndex(p=>p.f===state.cmpRoom); state.i=j>=0?j:0; setScheme(x[0], +x.slice(1), false); closeCompare(); });
 $('#cmp').addEventListener('click', e=>{ if(e.target===$('#cmp')) closeCompare(); });
 
-// saving (viewer's download capability; hidden when unavailable)
-let downloads=null; const inArtifact = !!(window.claude && window.claude.use);
-(async()=>{ if(!inArtifact) return; try{ downloads = await window.claude.use('downloads'); }catch(e){ downloads=null; } if(!downloads){ $('#dlBtn').hidden=true; $('#vidBtn').hidden=true; } })();
+// saving: the viewer's download capability inside Claude, an ordinary download link on the open web
+let downloads=null; const inArtifact=!!(window.claude&&window.claude.use);
+(async()=>{ if(!inArtifact) return; try{ downloads=await window.claude.use('downloads'); }catch(e){ downloads=null; } if(!downloads){ $('#dlBtn').hidden=true; $('#vidBtn').hidden=true; } })();
 async function saveUrl(url, filename){
   if(!inArtifact){ const a=document.createElement('a'); a.href=url; a.download=filename; document.body.appendChild(a); a.click(); a.remove(); toast('Downloading '+filename); return; }
   if(!downloads){ toast('Saving is not available in this view.'); return; }
-  try{ toast('Preparing '+filename+'…'); const r=await fetch(url); if(!r.ok) throw new Error(r.status); const data=await r.blob(); await downloads.save({filename, data}); toast('Saved: '+filename); }catch(e){ toast(e&&e.code==='declined'?'Download cancelled.':'Could not save that file.'); } }
+  try{ toast('Preparing '+filename+'…'); const r=await fetch(url); if(!r.ok) throw new Error(r.status); const data=await r.blob(); await downloads.save({filename,data}); toast('Saved: '+filename); }catch(e){ toast(e&&e.code==='declined'?'Download cancelled.':'Could not save that file.'); } }
 $('#dlBtn').onclick=()=>{ const p=photos(id())[state.i]; saveUrl(p.src, `golf-${id()}-${p.f}`); };
 $('#vidBtn').onclick=()=>saveUrl(`videos/${id()}-photo-tour.mp4`, `golf-${id()}-photo-tour.mp4`);
 
-// boot (hash deep link: #T01 … #H04)
-(function(){ const m=(location.hash||'').match(/^#([TMH]0[1-4])$/); if(m){ state.fam=m[1][0]; state.stage=+m[1].slice(1); } renderRail(); show(); })();
-addEventListener('hashchange', ()=>{ const m=(location.hash||'').match(/^#([TMH]0[1-4])$/); if(m && m[1]!==id()){ setScheme(m[1][0], +m[1].slice(1)); } });
+// boot (deep link: #T01 … #H04)
+(function(){ const m=(location.hash||'').match(/^#([TMH]0[1-4])$/); if(m){ state.fam=m[1][0]; state.stage=+m[1].slice(1); } renderPickers(); renderStrip(); renderDrawer(); show(); })();
+addEventListener('hashchange', ()=>{ const m=(location.hash||'').match(/^#([TMH]0[1-4])$/); if(m&&m[1]!==id()) setScheme(m[1][0], +m[1].slice(1)); });
 </script>
