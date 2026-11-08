@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       limit: { description: 'Max images this run (0 = all pending)', default: '0' }
-      jobs: { description: 'Parallel jobs', default: '12' }
+      jobs: { description: 'Parallel jobs', default: '20' }
 permissions: { contents: write }
 concurrency: { group: photo, cancel-in-progress: false }
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - id: plan
         run: |
-          LIMIT='${{ github.event.inputs.limit || '0' }}'; JOBS='${{ github.event.inputs.jobs || '12' }}'
+          LIMIT='${{ github.event.inputs.limit || '0' }}'; JOBS='${{ github.event.inputs.jobs || '20' }}'
           python3 - "$LIMIT" "$JOBS" <<'PY' >> "$GITHUB_OUTPUT"
           import glob, json, os, sys
           limit, jobs = int(sys.argv[1]), int(sys.argv[2])
@@ -48,7 +48,7 @@ jobs:
       - name: Download model weights (FLUX.2 klein 4B, Qwen3-4B, FLUX.2 VAE)
         run: |
           mkdir -p ~/models && cd ~/models
-          curl -sL --retry 3 -o flux-2-klein-4b-Q4_0.gguf https://huggingface.co/leejet/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q4_0.gguf &
+          curl -sL --retry 3 -o flux-2-klein-4b-Q8_0.gguf https://huggingface.co/leejet/FLUX.2-klein-4B-GGUF/resolve/main/flux-2-klein-4b-Q8_0.gguf &
           curl -sL --retry 3 -o Qwen3-4B-Q4_K_M.gguf https://huggingface.co/unsloth/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf &
           curl -sL --retry 3 -o flux2-vae.safetensors https://huggingface.co/Comfy-Org/vae-text-encorder-for-flux-klein-4b/resolve/main/split_files/vae/flux2-vae.safetensors &
           wait; ls -la ~/models
